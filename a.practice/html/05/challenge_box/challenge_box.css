@@ -1,0 +1,24 @@
+
+
+body{
+    border:0px;
+    width:400;
+   margin-left:auto;
+}
+    
+h1{
+      
+      border-bottom:  solid 3px #000000;
+      margin: 10px;
+      padding-bottom: 0px;
+}
+p{
+    border:solid 1px #000000;
+    background-color: #f0e68c;
+    display: block;
+    text-align:center;
+    width:200px;
+    height: 20px;
+      padding:0px
+margin-left:auto;
+}

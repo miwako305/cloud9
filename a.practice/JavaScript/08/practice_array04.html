@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset ="UTF-8">
+<title>配列３</title>
+</head>
+<script>
+var data1=[59, 39, 100, 2, 15, 40, 84, 97];
+var data2=[63, 18, 64, 97, 50, 98];
+var abarage;
+var i2;
+var datasum1  =0;
+var datasum2 =0;
+
+for(var i=0 ;i<data1.length; i++){
+  datasum1 =datasum1 + data1[i];
+}    
+ document.write(datasum1);
+
+for(var i=0 ;i<data2.length; i++){
+  datasum2 =datasum2 + data2[i];
+}    
+ document.write( + datasum2+ "<br>");
+ 
+abarage = ( datasum1 + datasum2 )/(data1.length + data2.length);
+document.write("<p>data1とdata2を合わせた平均値：" + abarage + "</p>");
+
+        for ( i = 0; i < data1.length; i++) {
+            if (data1[i] >= abarage) {
+                document.write('<div>data1: ' + data1[i] +'</div>');
+            }
+        }
+
+        for ( i = 0; i < data2.length; i++) {
+            if (data2[i] >= abarage) {
+                document.write('<div>data2: ' + data2[i] +'</div>');
+            }
+        }
+</script>
+
+<body>
+
+    
+</body>
+</html>

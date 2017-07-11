@@ -1,0 +1,38 @@
+
+.hedder {
+border:1px rgb(233, 191, 183);
+margin: 0;
+width:960px;
+}
+
+.logotitle {
+background-color:rgb(39, 226, 146);
+
+}
+
+.headertitle {
+background-color:rgb(115, 204, 35);
+}
+
+.header.menu {background-color:rgb(60, 60, 70);
+
+}
+
+.gmenu { background-color:rgb(35, 120, 190)
+
+}
+
+.a.heddermenu {
+    background-color:rgb(83, 106, 78)
+
+}
+
+.rabel {
+  background-color:rgb(226, 201, 210);
+
+}
+.footer {
+    height: 50px;
+background-color:rgb(100, 191, 183);
+}
+

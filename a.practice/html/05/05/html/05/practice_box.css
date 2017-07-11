@@ -1,0 +1,43 @@
+
+#wrapper {
+  text-align: left;
+  margin: 1em auto 0;
+  width: 860px;
+}
+
+#header {
+  padding: 20px 20px 10px;
+}
+
+#globalnavi {
+  width: 100%;
+  position: relative;
+}
+
+#container {
+  float: left;
+  width: 680px;
+}
+
+#contents {
+  float: right;
+  width: 460px;
+  padding: 4em 20px 4em 20px;
+}
+
+#left-sidebar {
+  float: right;
+  width: 170px;
+  padding: 4em 5px 2em;
+}
+
+#right-sidebar {
+  float: right;
+  width: 170px;
+  padding: 4em 5px 2em;
+}
+
+#footer {
+  clear: both;
+  padding: 0.5em 0 1em;
+}

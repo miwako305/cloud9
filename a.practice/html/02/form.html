@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset=UTF-8>
+    <title>form</title>
+</head>
+<form action="#">
+  
+    <p>
+        <label for="mail">メールアドレス</label>
+        <input type="email" name="mail" id="mail"/>
+    </p>
+    <p>
+        <label for="password">パスワード</label>
+        <input type="password" name="password" id="password" maxlength="12" >
+    </p>
+    <p>
+        <label for="post_code">郵便番号</label>
+        <input type=text  name="post_code" id="post_code" placeholder="111-111">
+    </p>
+　　<p>性別:<input type="checkbox" name="gender" value="man">男性
+　　　<input type="checkbox" name="gender" value="women">女性</p>
+　　<P>都道府県:<select name="pref">
+　　    <option value="">選択してください</option>
+　　    <option value="北海道">北海道</option>
+　　    <option value="東京">東京</option>
+　　    <option value="大阪">大阪</option>
+　　  </select>
+　　</P>
+　　<p>
+　　    メール配信:
+　　    <input type="checkbox" name="magazine" value="1" checked>
+　　</p>
+    <p>
+        <input type="submit" value="送信">
+    </p>
+</form>
+</body>
+</html>

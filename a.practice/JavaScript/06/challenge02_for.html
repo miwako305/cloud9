@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>繰り返し処理課題</title>
+<meta charset="UTF-8">
+<script>
+var sum = 0;
+var date = new Date();
+document.write(date)
+//現在日時から年のみを習得
+var year = date.getFullYear();
+////2000年から２０１７年まで
+for (var i = 0 ; sum < 17  ;i++ ) {
+    
+    sum = year - i;
+    document.write("" + sum + "<br>");
+}
+</script>
+    
+</html>

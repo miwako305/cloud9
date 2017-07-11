@@ -1,0 +1,68 @@
+body{
+    background-color: #ccccff;
+    padding: 50px;
+          
+}
+section{
+    display:block;
+    background-color: #ffffff;
+    padding: 10px;
+    
+    
+}
+
+.ichirann{
+    border:solid 2px #ff0000;
+    margin-bottom: 50px;
+    
+    }
+.ryouri{
+    border:solid 2px #0000ff;
+    margin-bottom: 40px;
+    
+    font:25px;
+
+
+.skyblue{
+    background-color: #ddffff;
+}
+
+.ichirann_restrun{
+    padding-left: 20px;
+    margin:10px; 
+}
+
+.ryouri_restrun{
+    padding-left: 20px;
+    margin:10px;
+    border-bottom: dashed #0000ff;
+    
+}
+
+.ryouri_restrun2{
+    padding-left: 30px;
+    margin:10px; 
+}
+.font25 {
+   font-size: 25px;
+}
+.font30 {
+   font-size: 30px;
+}
+
+
+.blue{
+  color:#0000ff;
+}
+.red{
+    color: #ff0000;
+}
+.pink{
+    background-color: #ff88ff;
+}
+.yellow{
+    color: #ffff00;
+    }
+    
+    
+    

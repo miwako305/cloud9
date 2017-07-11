@@ -1,0 +1,20 @@
+h1{
+    color:#0000ff;
+    font-size:20px;
+    background:#ddffff;
+    text-align:center;
+    border-bottom:dashed 1px #0000ff;
+    border-top:dashed 1px#0000ff;
+}
+body {
+    font-size: 16px ;
+    color:#bb2222;
+}   
+a{ 
+    color:#0000ff;
+    text-decoration:none;
+    text-align:left;
+}
+.red{
+    color:#00bbcc;
+}

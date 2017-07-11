@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>関数</title>
+<meta charset ="UTF-8">
+</head>
+<script>
+function throw_dice(num){
+    var sum = 0;
+    for (var i = 0; i < num; i++ ) {
+        //1~6の数字を変数sumへの合算
+        sum += Math.ceil(Math.random() * 6);
+    }
+    return sum;
+}
+
+document.write('<p>サイコロを1個ふる:' + throw_dice(1) + '</p>');
+document.write('<p>サイコロを1個ふる:' + throw_dice(1) + '</p>');
+document.write('<p>サイコロを2個ふる:' + throw_dice(2) + '</p>');
+document.write('<p>サイコロを2個ふる:' + throw_dice(2) + '</p>');
+document.write('<p>サイコロを3個ふる:' + throw_dice(3) + '</p>');
+document.write('<p>サイコロを3個ふる:' + throw_dice(3) + '</p>');
+</script>
+<body>
+</body>
+<html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>算術演算子</title>
+<script type>
+
+var apple = 100 ; //りんご１００円
+var grape = 150 ; //グレープ１５０円
+var sum ; //合計金額
+
+sum = apple +grape ;
+
+document.write('<p>合計金額は' + sum +'円</p>');
+var count ;//個数
+
+count = 3;
+var apples =apple*count ; //りんごの合計金額
+count =2;
+var grapes = grape*count ; //ぶどうの合計金額
+
+sum = apples + grapes ;
+var taxsum ; 
+taxsum = sum*1.08 ;  //消費税込みの合計金額
+
+document.write('<p>消費込みの合計金額は' + taxsum + '円</p>');
+
+
+
+
+
+</script>
+<body>
+</body>
+</html>
