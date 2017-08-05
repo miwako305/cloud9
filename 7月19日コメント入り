@@ -1,0 +1,237 @@
+<?php
+//session_start();二重になるので消します。はい
+//ここがさきほどのログインチェックと入れ替える必要がありますね。
+//今、見えていますか？見えています！
+//はい、ではこちらを直しますね。これでオッケーです。このあとのカート画面も購入完了画面も
+//ログインされていないと見れないページは全部これを最初に貼り付けてください。
+//後ほどで結構です。
+//はい＾＾さらに、ちゃんとログインできていれば、$user_idにログインユーザーのuser_idを取得しますので
+//こうなります。こうすると$user_idにログインユーザーのIDが入ります。毎ページでこれを行うと
+//どのページでもログインユーザーのIDが使えます。わかりました
+//ちょっと同じ処理をしているところを消しますね。
+//せっかく取得したユーザーIDを上書きしてしまっているところが数カ所ありましたので
+//コメントアウトしました。これもうまく動かなかった原因です。
+//ではログインして、topmenu.phpが正しく表示されるか確認しましょう。終わったらここに戻ってきてくださいね。わかりました
+//いかがですか？はいりません・・・はい、そうですね。ログインできていれば入れるのですが、ログイン処理の
+//SQLに間違いがあります。今までは、ログインできていないままで強引にtopmenu.phpに入っていました。
+//では直しますのでlogin.phpの56行目に行きましょう。はい
+//
+//ログインチェック
+// はい＾＾ではついにカートの処理ですね。まずは動作を確認して行きましょう。はい
+//同じ商品に対して2回目の数量変更でおかしくなるということでしたね。試して見ます。
+//お願いします。おそらく、カートidが二つまで新しく更新さレテしまうのでそこがダメなんだと思います
+//なるほど、色々試しましたが、かなりおかしな動作になっていますね。
+//では、確認します。ちょっと処理内容を読みますね。＊＿＊
+//見えますか？はい
+//では直して行きましょう。まず、98行目ですね。移動します。はい
+session_start();
+if(isset($_SESSION['user_id']) === true){
+    $user_id = $_SESSION['user_id'];
+} else {
+    //ログインされていなければログイン画面へ。
+    header('Location: login.php');
+    exit(); 
+}
+// if(isset($_SESSION['login']) == false)
+// {
+//     print 'ログインされていません';
+//      print '<a href="login.php">ログイン画面へ</a>';
+//      exit();
+// }
+// MySQL接続情報
+$host     = 'localhost';
+$username = 'miwako305';   // MySQLのユーザ名
+$password = '';       // MySQLのパスワード
+$dbname   = 'ga';     // MySQLのDB名
+$charset  = 'utf8';  // データベースの文字コード
+
+// MySQL用のDNS文字列
+$dsn = 'mysql:dbname='.$dbname.';host='.$host.';charset='.$charset;
+$img_dir    = './img/';  // 画像のディレクトリ
+$sql_kind   = '';     // SQL処理の種類
+$result_msg = '';     // 実行結果のメッセージ
+$data       = [];     // DBから取得した値を格納する配列
+$err_msg    = [];     // エラーメッセージを格納する配列
+// $user_id = $_SESSION['user_id'];
+$user_name =$_SESSION['user_name'];
+
+
+if(isset($_POST['sql_kind']) === true ){
+  $sql_kind =$_POST['sql_kind'];
+}
+if ($sql_kind === 'insert_cart') {
+    $item_id='';
+    $amount = '';
+    // $cart_id="";
+    //  $user_id="";
+
+
+    if (isset($_POST['amount']) === TRUE) {
+        $amount =$_POST['amount'];
+    }
+    if (isset($_POST['item_id']) === TRUE) {
+        $item_id =$_POST['item_id'];
+    }
+//  if (isset($_POST['user_id']) === TRUE) {
+//     $user_id =$_POST['user_id'];
+//  }
+
+} elseif ($sql_kind ==='update_cart') {
+    $update_amount='';
+    if (isset($_POST['update_amount']) === TRUE) {
+        $update_amount = $_POST['update_amount'];
+    }
+    $item_id='';
+    if (isset($_POST['item_id']) === TRUE) {
+        $item_id =$_POST['item_id'];
+    }
+    if (isset($_POST['cart_id']) === TRUE) {
+        $cart_id =$_POST['cart_id'];
+    }
+}
+
+try {
+    // データベースに接続
+    $dbh = new PDO($dsn, $username, $password);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    
+
+    if(count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+        $created_datetime = date('Y-m-d H:i:s');
+        $update_datetime = date('Y-m-d H:i:s');
+    
+        if ($sql_kind === 'insert_cart'){
+
+            // SQL文を作成
+            //こちらです。はいここで、cart_idを指定していますが、
+            //cart_idとはauto_incrementで設定される値ではありませんか？そうです。
+            //ありがとうございます＾＾その場合、cart_idは不要です。
+            //こうなります。//わかりました。勝手に設定されますものね。
+            //はい＾＾そうです。では次に167行目に行きましょう。はい
+            $sql = 'INSERT carts (item_id, user_id, amount, create_datetime)
+            VALUES(?, ?, ?, ?)';
+            // SQL文を実行する準備
+            $stmt = $dbh->prepare($sql);
+            // SQL文のプレースホルダに値をバインド
+            $stmt->bindValue(1,$item_id,     PDO::PARAM_INT);
+            $stmt->bindValue(2,$user_id,     PDO::PARAM_INT);
+            $stmt->bindValue(3,$amount,      PDO::PARAM_INT);
+            $stmt->bindValue(4,$created_datetime,  PDO::PARAM_STR);
+            // $stmt->bindValue(5,$cart_id,     PDO::PARAM_INT);
+            
+
+            // SQLを実行
+            $stmt->execute();
+            // 表示メッセージの設定
+            $result_msg = '初めてカートに入れました';
+
+        }elseif($sql_kind === 'update_cart' ){
+       
+
+            // SQL文を作成
+            //こちらです。はい
+            //こちらは、cart_idは何番なのかわからないので条件には使えません。使えるのはuser_idです。
+            //DBに行けば何番かわかるではダメなんですか？　
+            //その場合、select文で取得して、一覧表示の中に埋め込み、そのあとで受け取って使うという
+            //面倒なプロセスが必要になります。それよりも、誰がどの商品を買ったかさえわかればそれだけで
+            //十分です。//わかりました。
+            //<input type= "hidden" name="cart_id" value="<?php print $value ['cart_id']; ">で送っているのですがこれはもバグの原因でスカ？は          
+           //バグにはなりませんが、不要にややこしくしています。わかりましたそもそも184行目でバインドしているのは$user_idになっていました。
+           //ですのでこれでオッケーです。ありがとうございます。
+           //では動作チェックして見ましょう。hai
+           //商品が見れないですね。。。ちなみに、カートも見れないんですが、実装当初は見れたんですよね。。。
+           //カートの中身は、画面が変わるのでログイン処理を書き換える必要があります。これは上部の内容を貼り付けるだけです。
+           //まず、こちらの表示ですが、どうしましたか？あ、今?と書き込まれたので何か質問かと思いました。？何がでしょうか？すいません、特に大丈夫です
+           //では、まずこちらの表示ですが、カートの機能と商品一覧が混ざっているところをどうにかしないといけません。
+           //現在は、一覧表示しているのがカートに入っているもののみになっているので、
+           //難しいところです。
+           //問題を解決するためには
+           //1. ユーザーごとにそもそもカートを区別しない。
+           //2. 大手術
+           //となりますが、2は時間がないので避けたいところです。
+           //先ほどの問題はユーザーごとにカートが分かれていなかったので新規のカートと既存のカートがうまく区別できませんでした。
+           //テストユーザーを一人決めて、そのアカウントでしかログインしない仕組みにしないと、
+           //現在の仕組みは使えませんね。なるほど困りましたね。はい
+           //ちょっと1の仕組みにして見ましょう。これは簡単で、全てのユーザーのカートを見れるようにするので、
+           //さっきのSELECT文の修正を元に戻して来ます。これで見られるようになりました。
+           //次に、修正が1回分後に表示されるので、INSERT及びUPDATEの処理の後にSELECTを実行するように
+           //修正します。はいこれで、順番が変わりました。確認して見ましょう！ありがとうございます
+           //まずはこれで、自分のカートデータは書き換えられるようになっているはずです。
+           //ただし、私が作成したものは書き換えられません。
+           //ですので、ユーザーを一人決めてしまいましょう。そしてそれ以外の方ではログインさせず、
+           //そのユーザー以外のデータを削除しておきましょう。
+           //そうすれば表示させられます。
+           //あとは次のページのログイン処理もつけておきます。
+           //ホームページ内に滞在できるのが一人だけにするといために設定するというのが想像できないのですが
+           //こちらは、まだ複数ユーザーがログインした時に不具合を起こさない仕組みにはなっていません。
+           //そして、それを明日までに実装するには時間が足りません。
+           //ですので、明日の発表の際にはその不具合を起こさないようにするのです。昨日聞けばよかったです＞＜
+           //そうですね＾＾；そうすれば時間は足りましたが、仕方ありません。
+           //まずは明日までにできることでベストを尽くしましょう！ありがとうございます。私のわがままで申し訳ありませんが、お時間大丈夫ですかはてな？
+           //そのあとで、また改良して、今後の転職活動に繋げれば良いのです＾＾
+           //はい、そろそろ他にも質問あるので行きます。長い時間ありがとうございます
+           //はい＾＾では、また不明点あったら、ひとまず質問アップしておいてください。
+           //時間があれば私もありがとうございます。解答します。では、失礼します！
+            $sql = 'UPDATE carts SET amount = ?, update_datetime = ? WHERE item_id = ? AND user_id = ? ';
+            // SQL文を実行する準備
+            $stmt = $dbh->prepare($sql);
+                // SQL文のプレースホルダに値をバインド
+                
+            $stmt->bindValue(1, $update_amount,                 PDO::PARAM_INT);
+            $stmt->bindValue(2, $update_datetime,           PDO::PARAM_STR);
+            $stmt->bindValue(3, $item_id,                    PDO::PARAM_INT);
+            $stmt->bindValue(4, $user_id,                    PDO::PARAM_INT);
+            // SQLを実行
+            $stmt->execute();
+                // 表示メッセージの設定
+            $result_msg = '数量を変更しました';
+ 
+        }
+        
+       
+  
+    }
+     //こちらですここで、ユーザーidが指定されていないので、全てのユーザーのデータが取得されています。
+    //こうしてWHERE文をつけて
+    $sql = 'SELECT
+              items_master.item_id,
+              items_master.item_name,
+              items_master.price,
+              items_master.img,
+              carts.amount,
+              carts.cart_id 
+              FROM
+              items_master
+              LEFT OUTER JOIN carts
+             ON items_master.item_id = carts.item_id';
+             //WHERE carts.user_id = ?';
+    // SQL文を実行する準備
+    $stmt = $dbh->prepare($sql);
+    
+    //$stmt->bindValue(1, $user_id, PDO::PARAM_INT);//これで自分のカートデータしか表示されなくなります。
+    //ではこの先も見て行きましょう。次は141行目ですね。はい
+    // SQLを実行
+    $stmt->execute();
+    // レコードの取得
+    $rows = $stmt->fetchAll();
+    // 1行ずつ結果を配列で取得します
+    $i = 0;
+    foreach ($rows as $row) {
+        $data[$i]['item_id']   = htmlspecialchars($row['item_id'],   ENT_QUOTES, 'UTF-8');
+        $data[$i]['item_name'] = htmlspecialchars($row['item_name'], ENT_QUOTES, 'UTF-8');
+        $data[$i]['price']      = htmlspecialchars($row['price'],      ENT_QUOTES, 'UTF-8');
+        $data[$i]['img']        = htmlspecialchars($row['img'],        ENT_QUOTES, 'UTF-8');
+        $data[$i]['amount']      = htmlspecialchars($row['amount'],      ENT_QUOTES, 'UTF-8');
+        $data[$i]['cart_id']      = htmlspecialchars($row['cart_id'],      ENT_QUOTES, 'UTF-8');
+        $i++;
+    }
+}catch (PDOException $e) {
+    $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
+    // var_dump($e);
+}
+
+
+// テンプレートファイル読み込み
+include_once'view/topmenu.php';//topmenu.php';/topmenu.php';/topmenu.php';/topmenu.php';/topmenu.php';/topmenu.php';/topmenu.php';

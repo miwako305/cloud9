@@ -27,6 +27,7 @@
         </td>
         
        </table>
+        
     </div>
     <div id="main">
         <div id ="maincontener">
@@ -46,22 +47,16 @@
             </td>
             <td>
             </td>
-              <?php foreach ($data as $value)  { ?>
-              
+    　　　    　　　<?php foreach ($data as $value)  { ?>
                 <tr>
                   <td class="cart_img"><span class="img_size"><img src="<?php print  $img_dir . $value['img']; ?>"widh="81" height="50" ></span></td>
                   <td class="cart_name"><span class="cart_item_name"><?php print $value['item_name']; ?></span></td>
                   <td class="cart_price"><span class="cart_item_price"><?php print $value['price']; ?>円</span></td>
                   <td class="cart_amount"><span class="cart_item_amount"><?php print $value['amount']; ?></span><br></td>
-                    <td><form method="post"> 
-                      <input type= "hidden" name="item_id" value ="<?php print $value ['item_id']; ?>">
-                      <input type="text" name="sql_kind" value= "">
-                      <input type="submit" class="subumitbuttn" value="数量変更"> 
-                     </form></td>
                   <td class="cart_delete">
                      <form method="post"> 
-                      <input type= "hidden" name="item_id" value=="<?php print $value ['item_id']; ?>">
-                      <input type="hidden" name="sql_kind" value= "cart_delete">
+                      <input type= "hidden" name="item_id" value="<?php print $value ['item_id']; ?>">
+                      <input type="hidden" name="sql_kind" value= "cart_delete"  >
                       <input type="submit" class="subumitbuttn" value="削除"> 
                      </form>
                   </td><br>
@@ -73,16 +68,16 @@
             <table id="top_boder">
              <td></td>
              <td></td>
-              <td id="sumbox"> 請求金額：<?php print ""; ?></td><br>
+              <td id="sumbox"> 請求金額：<?php print "無料です" ?></td><br>
              <td></td>
+              
               <td class ="textbottum"> 
-              <form method="post" action= "buy.php" >
-                      <input type="hidden" name="sql_kind" value= "buy">
-                      
+              <form method="post" action= "/ga/buy.php"> 
+                      <input type= "hidden" name="item_id" value="<?php print $value ['item_id']; ?>">
+                      <input type="hidden" name="sql_kind" value= "cart_delete"  >
                       <input type="submit" class="subumitbuttn" value="購入する"> 
-                </form>
-                <? php } ?>
-            <td class ="textbottum"> 
+                     </form>
+            　<td class ="textbottum"> 
               <a href = "/ga/topmenu.php">商品一覧に戻る</a></td>
             </table>
            </div>

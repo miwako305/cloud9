@@ -73,12 +73,11 @@
             <table id="top_boder">
              <td></td>
              <td></td>
-              <td id="sumbox"> 請求金額：<?php print ""; ?></td><br>
+              <td id="sumbox"> 請求金額：<?php print $total; ?></td><br>
              <td></td>
               <td class ="textbottum"> 
               <form method="post" action= "buy.php" >
                       <input type="hidden" name="sql_kind" value= "buy">
-                      
                       <input type="submit" class="subumitbuttn" value="購入する"> 
                 </form>
                 <? php } ?>
