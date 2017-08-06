@@ -18,7 +18,8 @@
   }
   .now_item{
       text_align:left;
-      font-size: 1ex;
+      
+      font-size: 0.5ex;
   }
   
   </style>
@@ -47,11 +48,20 @@
     </form>
   </section>
   <section>
-    <h2>商品情報変更</h2>
+    
     <table>
-      <caption>商品一覧</caption>
+      <caption>
+       <tr>      
+       <th></th>
+      　<th>登録商品情報</th>
+      　<th></th>
+        <th>商品情報変更</th>
+      </tr>
+      </caption>
       <tr>
-        <th>商品画像</th>
+        <th></th>
+        <th></th>
+        <th>画像</th>
         <th>商品名</th>
         <th>価格</th>
         <th>在庫数</th>
@@ -68,9 +78,9 @@
             <img src="<?php print $img_dir . $value['img']; ?>" height="100" width="100" ></br>
             </th>
         <th class="now_item">
-            <a class="now_item">商品名:<?php print $value['item_name']; ?></a></br>
-            <a class="now_item">商品価格：<?php print $value['price']; ?>円</a>
-            <a class="now_item">商品在庫：<?php print $value['stock']; ?>個</a>
+           <td><a class="now_item">商品名:<?php print $value['item_name']; ?></a></td>
+            <td><a class="now_item">商品価格：<?php print $value['price']; ?>円</a></td>
+            <td><a class="now_item">商品在庫：<?php print $value['stock']; ?>個</a></td>
         </th>
           <th>
              <form method="post" enctype="multipart/form-data">  
@@ -133,3 +143,4 @@
   </section>
 </body>
 </html>
+

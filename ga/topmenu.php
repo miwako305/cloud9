@@ -22,6 +22,7 @@ $result_msg = '';     // 実行結果のメッセージ
 $data       = [];     // DBから取得した値を格納する配列
 $err_msg    = [];     // エラーメッセージを格納する配列
 $user_name =$_SESSION['user_name'];
+$user_id =$_SESSION['user_id'];
 
 
 if(isset($_POST['sql_kind']) === true ){
@@ -64,7 +65,7 @@ try {
     
         if ($sql_kind === 'insert_cart'){
 
-            $sql = 'INSERT carts (item_id, user_id, amount, create_datetime)
+            $sql = 'INSERT carts (item_id, userid, amount, create_datetime)
             VALUES(?, ?, ?, ?)';
             // SQL文を実行する準備
             $stmt = $dbh->prepare($sql);
@@ -73,8 +74,6 @@ try {
             $stmt->bindValue(2,$user_id,     PDO::PARAM_INT);
             $stmt->bindValue(3,$amount,      PDO::PARAM_INT);
             $stmt->bindValue(4,$created_datetime,  PDO::PARAM_STR);
-            // $stmt->bindValue(5,$cart_id,     PDO::PARAM_INT);
-            
 
             // SQLを実行
             $stmt->execute();
@@ -101,8 +100,6 @@ try {
        
   
     }
-     //こちらですここで、ユーザーidが指定されていないので、全てのユーザーのデータが取得されています。
-    //こうしてWHERE文をつけて
     $sql = 'SELECT
               items_master.item_id,
               items_master.item_name,
@@ -117,10 +114,8 @@ try {
              ON items_master.item_id = carts.item_id
               INNER JOIN items_stock
              ON items_master.item_id = items_stock.item_id';
-             //WHERE carts.user_id = ?';
     // SQL文を実行する準備
     $stmt = $dbh->prepare($sql);
-    
     //$stmt->bindValue(1, $user_id, PDO::PARAM_INT);//これで自分のカートデータしか表示されなくなります。
     //ではこの先も見て行きましょう。次は141行目ですね。はい
     // SQLを実行

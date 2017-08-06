@@ -65,4 +65,16 @@ section{
     }
     
     
-    
+     able { boder: 1px;
+         
+     }
+ caption {  ;}
+ colgroup { background-color:#000 1px; display:block; }
+   col { background-color:#000 1px; display:block; }
+   tbody { background-color:#000 1px; display:block; }
+    thead { background-color:#000 1px; display:block; }
+ tr { background-color:#000 1px; display:block; }
+ td { background-color:#000 1px; display:block; }
+ th { background-color:#000 1px; display:block; }
+
+    tfoot { background-color:#000 1px; display:block; }

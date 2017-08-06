@@ -5,7 +5,7 @@
      <title>映画飯</title>
      <link rel="stylesheet" href="html5reset-1.6.1.css">
      <link rel="stylesheet" href="movie.css">
-</head>
+</head
  <body>
   <div id="pagebody">
    <div id="header">
@@ -18,7 +18,7 @@
           <input type="submit" value ="検索">
          </form>
          <a>ようこそ</a>
-         </a><?php print $user_name; ?>
+         </a><?php print $user_name . "id" . $user_id ; ?>
          <a>さん</a>
         </tr>
         <td>
@@ -64,7 +64,7 @@
            </label>     
              <?php if($value['amount'] === "" ){ ?>
               <form   method="post"   >
-                 <input type="hidden" name="user_id" value="<?php print $user_id; ?>" >
+                 <input type="range" name="user_id" value="<?php print $user_id; ?>" >
                  <input type= "hidden" name="item_id" value="<?php print $value['item_id']; ?> ">
                  <input type="hidden" name="sql_kind" value= "insert_cart">
                 <select name="amount"><?php  for ($i = 1; $i <= 20; $i++) {?><option value="<?php print $i; ?>"> <?php print $i; } ?></option></select><a>&nbsp;&nbsp;個</a>
@@ -75,6 +75,7 @@
               <form  method="post" >
                 <input type= "hidden" name="item_id" value="<?php print $value ['item_id']; ?>">
                 <input type= "hidden" name="cart_id" value="<?php print $value ['cart_id']; ?>">
+                <input type="hidden" name="user_id" value="<?php print $user_id; ?>" >
                 <input type="hidden" name="sql_kind" value= "update_cart"  >
                 <select name="update_amount"><?php  for ($i = 0; $i <= 20; $i++) {?><option value="<?php print $i; ?>"> <?php print $i; } ?></option></select><a>&nbsp;&nbsp;個</a>
                 <input type="submit" class="subumitbuttn" value="数量変更"> </td><br>

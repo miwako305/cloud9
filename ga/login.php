@@ -63,8 +63,7 @@ define('DSN', 'mysql:dbname=ga;host=localhost;charset=utf8');
     $stmt = $dbh->prepare($sql);
         $stmt->bindValue(1, $user_name,    PDO::PARAM_INT);
         $stmt->bindValue(2, $userps,        PDO::PARAM_INT);
-        // $stmt->bindValue(1, $user_id,        PDO::PARAM_INT);
-    // SQLを実行
+        // SQLを実行
     $stmt->execute();
     // レコードの取得
     $rows = $stmt->fetchAll();
@@ -107,18 +106,11 @@ define('DSN', 'mysql:dbname=ga;host=localhost;charset=utf8');
         // }
      ///と行った形で、セッションの処理を行なっているのですが
         if (count($rows) >= 1) {
-            //  $result_msg = 'ログイン成功';リダイレクトしたら、変数は使えないので、ここは不要です。
-             //どうしましたか？新規でログインできるか見て見たところ、新しいPSでもすでに」登録されているとでてしまいます
-             //なるほど、チェックしましょう。ただ、それは新規ログインではなく、
-             //ユーザー登録ではありませんか？
-            //   $user_id=$row[3];ここは110行目あるので不要です。
-            //   $_SESSION['login']=1;ここもこれで不要になります。先ほどのチェックが書かれていた点はこちらに直しましょう。
             $_SESSION['user_name']= $user_name;//ここも本来不要ですが、害がなさそうなので一応残します。
             $_SESSION['user_id'] = $rows[0]['user_id'];
             header('Location: topmenu.php');
             exit();//header関数によるリダイレクトは、exitを必ずワンセットでつける必要があります。
         }else{
-        //   $result_msg = 'ログイン失敗' ;ここも同様です。
            header('Location: login.php');
            exit();//ここはワンセットになります。
         //   あとは、ログイン後のページでログインチェックを直さないとログインしたあと
