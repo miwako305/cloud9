@@ -7,14 +7,6 @@ if(isset($_SESSION['user_id']) === true){
     header('Location: login.php');
     exit(); 
 }
-// session_start();
-// if(isset($_SESSION['login']) == false)
-// {
-//     print 'ログインされていません';
-//      print '<a href="login.php">ログイン画面へ</a>';
-//      exit();
-// }
-// MySQL接続情報
 $host     = 'localhost';
 $username = 'miwako305';   // MySQLのユーザ名
 $password = '';       // MySQLのパスワード
@@ -29,9 +21,11 @@ $result_msg = '';     // 実行結果のメッセージ
 $data       = [];     // DBから取得した値を格納する配列
 $err_msg    = [];     // エラーメッセージを格納する配列
 
-$user_id = '1';//$_SESSION['userps'];
+$cart=$_POST['cart'];
+$user_id = $_SESSION['user_id'];
 $user_name =$_SESSION['user_name'];
 
+var_dump($cart);
 if(isset($_POST['sql_kind']) === TRUE ){
     $sql_kind =$_POST['sql_kind'];
     }
@@ -78,41 +72,6 @@ try {
     
     $create_datetime = date('Y-m-d H:i:s');
     $update_datetime = date('Y-m-d H:i:s');
-    
-    if ($sql_kind === 'insert_cart'){
-     // SQL文を作成
-        $sql = 'INSERT carts (item_id, amount, create_datetime,cart_id, user_id)
-        VALUES(?, ?, ?, ? ,?)';
-        // SQL文を実行する準備
-        $stmt = $dbh->prepare($sql);
-        // SQL文のプレースホルダに値をバインド
-        $stmt->bindValue(1,$item_id,     PDO::PARAM_INT);
-        $stmt->bindValue(2,$amount,      PDO::PARAM_INT);
-        $stmt->bindValue(3,$create_datetime,  PDO::PARAM_STR);
-        $stmt->bindValue(4,$cart_id,     PDO::PARAM_INT);
-        $stmt->bindValue(5,$user_id,     PDO::PARAM_INT);
-        // SQLを実行
-        $stmt->execute();
-        // 表示メッセージの設定
-        $result_msg = '初めてカートに入れました';
-
-    }elseif($sql_kind === 'update_cart' ){
-            // SQL文を作成
-            $sql = 'UPDATE carts SET amount = ?, update_datetime = ? WHERE item_id = ? AND user_id = ? ';
-            // SQL文を実行する準備
-            $stmt = $dbh->prepare($sql);
-            // SQL文のプレースホルダに値をバインド
-            $stmt->bindValue(1, $update_amount,                 PDO::PARAM_INT);
-            $stmt->bindValue(2, $update_datetime,           PDO::PARAM_STR);
-            $stmt->bindValue(3, $item_id,                    PDO::PARAM_INT);
-            $stmt->bindValue(4, $user_id,                    PDO::PARAM_INT);
-            // SQLを実行
-                  $stmt->execute();
-            // 表示メッセージの設定
-            $result_msg = '数量を変更しました';
-            
-    }
-}
 
       $sql = 'SELECT
               items_master.item_id,
@@ -143,7 +102,7 @@ try {
       $data[$i]['cart_id']      = htmlspecialchars($row['cart_id'],      ENT_QUOTES, 'UTF-8');
       $i++;
     }
-    }catch (PDOException $e) {
+    }}catch (PDOException $e) {
         $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
     }
 // テンプレートファイル読み込み
