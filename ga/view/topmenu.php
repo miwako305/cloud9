@@ -25,12 +25,12 @@
 		 <tr>
 		 <a>カートの中は</a>
 		 <a>
-		 </a><?php print '0'; ?>
+		 </a><?php print ''; ?>
 			 </a>
 		 <a>です</a><br>
 		 </tr>
 		 <a href="cart.php" class="a.heddermenu">
-		 	<form　meta="post">
+		 	<form meta="post">
 		 		<input type="submit" value="カートをみる"/>
 		 	</form>カートを見る</a>
 		<a href="login.php" class="a.heddermenu">ログインボタンに戻る</a>
@@ -61,30 +61,37 @@
 		   
 				<span><?php print $value['item_name']; ?></span>
 				<span><?php print $value['price']; ?>円</span>
+				<span> アイテムイID<?php print $value['item_id']; ?>円</span>
 				<?php   if ($value['stock'] < 0) { ?>
 							<span class="soldout">soldout！</span>
 				<?php   } ?>
 
 		   </label>     
-			 <?php if($value['amount'] === "" ){ ?>
+			 <?php if($cart['amount'] ='' ){ ?>
 			  <form   method="post"   >
-				 <input type="range" name="user_id" value="<?php print $user_id; ?>" >
-				 <input type= "hidden" name="item_id" value="<?php print $value['item_id']; ?> ">
+				 <input type= "hidden" name="item_id" value= "<?php print $value['item_id']; ?>">
 				 <input type="hidden" name="sql_kind" value= "insert_cart">
 				<select name="amount"><?php  for ($i = 1; $i <= 20; $i++) {?><option value="<?php print $i; ?>"> <?php print $i; } ?></option></select><a>&nbsp;&nbsp;個</a>
-				<input type="submit" class="subumitbuttn" value="カートにいれる"> </td>
+				<input type="submit" class="subumitbuttn" value="カートにいれる"> 
+			   <?php var_dump($user_id);?>
+				</td>
 				
 			   </form>
 			   <?php }else{ ?>
+			   <?php foreach ($cart as $value)  { ?>
 			  <form  method="post" >
-				<input type= "hidden" name="item_id" value="<?php print $value ['item_id']; ?>">
+				<input type= "hidden" name="item_id" value=<?php print $value['item_id']; ?>>
 				<input type="hidden" name="user_id" value="<?php print $user_id; ?>" >
 				<input type="hidden" name="sql_kind" value= "update_cart"  >
 				<select name="amount"><?php  for ($i = 0; $i <= 20; $i++) {?><option value="<?php print $i; ?>"> <?php print $i; } ?></option></select><a>&nbsp;&nbsp;個</a>
-				<input type="submit" class="subumitbuttn" value="数量変更"> </td><br>
-				<small><a>※カートの中に現在<?php print $amount; ?>個入っています。</a></small>
+				<input type="submit" class="subumitbuttn" value="数量変更"</td>
+				<table>
+					<tr>
+						<td></td>
+					</tr>
+				</table>><br>
 			  </form>
-			  
+			  <?php  } ?>
 			  
 	  </div>
 	 </div>
