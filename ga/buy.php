@@ -21,8 +21,7 @@ $data= [];
 $img_dir= './img/';  // 画像のディレクトリ
 $err_msg= [];   // エラーメッセージを格納する配列
 ///仮染めユーザ-
-$user_id=0;
-$user_name="名前";
+$user_id = $_SESSION['user_id'];
 
 
 try {
@@ -31,18 +30,22 @@ try {
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-  try {
-   $sql = 'SELECT
-   items_master.item_id,
-   items_master.item_name,
-   items_master.price,
-   items_master.img,
-   carts.amount
-   FROM items_master JOIN carts
-   ON  items_master.item_id = carts.item_id';
+ $sql = 'SELECT
+              items_master.item_id,
+              items_master.item_name,
+              items_master.price,
+              items_master.img,
+              carts.amount,
+              carts.cart_id 
+              FROM
+              items_master
+              LEFT OUTER JOIN carts
+             ON items_master.item_id = carts.item_id
+             WHERE carts.user_id = ?';
+             
     // SQL文を実行する準備
     $stmt = $dbh->prepare($sql);
-    // SQLを実行
+    $stmt->bindValue(1, $user_id, PDO::PARAM_INT);
     $stmt->execute();
     // レコードの取得
     $rows = $stmt->fetchAll();
@@ -57,9 +60,7 @@ try {
      $data[$i]['amount']      = htmlspecialchars($row['amount'],      ENT_QUOTES, 'UTF-8');
      $i++;
     }
-    }catch (PDOException $e) {
-        $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
-    }
+ 
    }catch (PDOException $e) {
     $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
    }
@@ -74,7 +75,15 @@ try {
      <link rel="stylesheet" href="topmenu.css">
 </head>
  <body>
+  <?php foreach ($data as $value)  { ?>
+              
+                <tr>
+                  <td class="cart_img"><span class="img_size"><img src="<?php print  $img_dir . $value['img']; ?>"widh="81" height="50" ></span></td>
+                  <td class="cart_name"><span class="cart_item_name"><?php print $value['item_name']; ?></span></td>
+                  <td class="cart_price"><span class="cart_item_price"><?php print $value['price']; ?>円</span></td>
+                </tr>
+<?php } ?>
 購入ありがとうございました。
-
+  <a href = "/ga/topmenu.php">商品一覧に戻る</a></td>
   </body>
 </html>

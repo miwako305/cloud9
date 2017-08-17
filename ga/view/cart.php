@@ -52,20 +52,26 @@
                   <td class="cart_img"><span class="img_size"><img src="<?php print  $img_dir . $value['img']; ?>"widh="81" height="50" ></span></td>
                   <td class="cart_name"><span class="cart_item_name"><?php print $value['item_name']; ?></span></td>
                   <td class="cart_price"><span class="cart_item_price"><?php print $value['price']; ?>円</span></td>
-                  <td class="cart_amount"><span class="cart_item_amount"><?php print $value['amount']; ?></span><br></td>
-                    <td><form method="post"> 
+                  <td class="cart_amount"><span class="cart_item_amount">
+                    <form method="post"> 
+                      <input type="hidden" name="sql_kind" value= "cart_update">
                       <input type= "hidden" name="item_id" value ="<?php print $value ['item_id']; ?>">
-                      <input type="text" name="sql_kind" value= "">
+                      <select name="amount">
+                     <option value=""><?php print $value['amount'];  ?></option>
+                     <?php  for ($i = 1; $i <= 20; $i++) {?>
+                      <option value="<?php print $i;  ?>"><?php print $i;  ?></option>
+                      <?php } ?>
+                      </select>
+                      <a>&nbsp;&nbsp;個</a>             
                       <input type="submit" class="subumitbuttn" value="数量変更"> 
-                     </form></td>
+                     </form></span><br></td>
                   <td class="cart_delete">
                      <form method="post"> 
-                      <input type= "hidden" name="item_id" value=="<?php print $value ['item_id']; ?>">
+                      <input type= "hidden" name="cart_id" value= <?php print $value['cart_id']; ?>>
                       <input type="hidden" name="sql_kind" value= "cart_delete">
                       <input type="submit" class="subumitbuttn" value="削除"> 
                      </form>
                   </td><br>
-                  <?php }  ?><br>
                 </tr>
                 </td>
                 </caption>
@@ -78,7 +84,7 @@
               <td class ="textbottum"> 
               <form method="post" action= "buy.php" >
                       <input type="hidden" name="sql_kind" value= "buy">
-                      
+                                           <?php  }  ?>
                       <input type="submit" class="subumitbuttn" value="購入する"> 
                 </form>
                 <? php } ?>

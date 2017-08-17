@@ -53,8 +53,8 @@
       <caption>
        <tr>      
        <th></th>
-      　<th>登録商品情報</th>
-      　<th></th>
+       <th>登録商品情報</th>
+       <th></th>
         <th>商品情報変更</th>
       </tr>
       </caption>
@@ -92,7 +92,7 @@
          </th>
          <th>
              <form method="post">
-                <input type="text" class="input_text_width text_align_right" name="update_item_name" value="<?php print $value['item_name']; ?>"> &nbsp;&nbsp; <input type="submit"  value= "変更" >
+                <input type="text" class="input_text_width text_align_right" name="item_name"> &nbsp;&nbsp; <input type="submit"  value= "変更" >
                 <input type="hidden" name="sql_kind" value="update_item_name">
                 <input type= "hidden" name="item_id" value="<?php print $value['item_id']; ?>">
              </form>

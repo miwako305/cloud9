@@ -24,6 +24,7 @@
        <a>カートの中は <?php print '0'; ?> です</a><br>
       </tr>
       <a href="cart.php" class="a.heddermenu">カートを見る</a>
+       <a href="login.php" class="a.heddermenu">ログイン画面に戻る</a>
      </td>
     </table>
     </div>

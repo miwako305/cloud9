@@ -30,8 +30,13 @@ if (isset($_POST['item_id']) === TRUE) {
 if (isset($_POST['amount']) === TRUE) {
   $amount = $_POST['amount'];
 }
+if(isset($_POST['sql_kind']) === true ){
+  $sql_kind =$_POST['sql_kind'];
+}
 
-
+if (isset($_POST['cart_id']) === TRUE) {
+  $cart_id = $_POST['cart_id'];
+}
 
 try {
     // データベースに接続
@@ -40,7 +45,51 @@ try {
     $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     // 現在日時を取得
     $now_date = date('Y-m-d H:i:s');   
-       $sql = 'SELECT
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+    if($sql_kind==='cart_update'){
+    $amount = $_POST['amount'];
+    $item_id= $_POST['item_id'];
+        
+      $sql = 'UPDATE carts
+             SET amount = ?
+             WHERE item_id = ?';
+             
+      $stmt = $dbh->prepare($sql);
+      
+      $stmt->bindValue(1, $amount,     PDO::PARAM_INT);
+      $stmt->bindValue(2, $item_id,    PDO::PARAM_INT);      $stmt->bindValue(3, $user_id,    PDO::PARAM_INT);
+      $stmt->execute();
+    }elseif ($sql_kind === 'cart_delete') {
+   $cart_id= $_POST['cart_id'];
+	// SQL文を作成
+	$sql = 'DELETE FROM carts  WHERE cart_id = ?';
+	// SQL文を実行する準備
+	$stmt = $dbh->prepare($sql);
+	// SQL文のプレースホルダに値をバインド
+	$stmt->bindValue(1, $cart_id,       PDO::PARAM_INT);
+	// SQLを実行
+	$stmt->execute();
+	// 表示メッセージの設定
+	$result_msg = '削除しました';
+	var_dump($cart_id);														
+    }elseif ($sql_kind === 'buy'){
+    $amount_order = $_POST['amount'];
+    $item_id= $_POST['item_id'];
+    
+      $now_date = date('Y-m-d H:i:s');
+     $sql =  'INSERT INTO oders (user_id, item_id, amount, create_datetime) 
+              VALUES (?, ?, ?, ?)';
+              $stmt = $dbh->prepare($sql);
+              // SQL文のプレースホルダに値をバインド
+       $cart_list=array();
+      var_dump($item_id);
+       $stmt->execute($cart_list);
+    
+    }
+    }
+           $sql = 'SELECT
               items_master.item_id,
               items_master.item_name,
               items_master.price,
@@ -69,8 +118,9 @@ try {
         $data[$i]['amount']      = htmlspecialchars($row['amount'],      ENT_QUOTES, 'UTF-8');
         $data[$i]['cart_id']      = htmlspecialchars($row['cart_id'],      ENT_QUOTES, 'UTF-8');
         $i++;
-    }
-         
+   
+    } 
+    
 }catch (PDOException $e) {
     $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
     var_dump($e);
