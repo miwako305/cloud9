@@ -106,8 +106,14 @@ try {
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(1, $user_id, PDO::PARAM_INT);
     $stmt->execute();
+    
     // レコードの取得
     $rows = $stmt->fetchAll();
+    $buy_item_id = $rows['item_id'];
+    $buy_cart_id = $rows['cart_id'];
+    $buy_amount = $rows['amount'];
+    $price = $rows['price'];
+    $priceamount = $price*$buy_amount; 
     // 1行ずつ結果を配列で取得します
     $i = 0;
     foreach ($rows as $row) {
@@ -118,8 +124,8 @@ try {
         $data[$i]['amount']      = htmlspecialchars($row['amount'],      ENT_QUOTES, 'UTF-8');
         $data[$i]['cart_id']      = htmlspecialchars($row['cart_id'],      ENT_QUOTES, 'UTF-8');
         $i++;
-   
-    } 
+       } 
+    $cartitem_id[]=$row['item_id'];
     
 }catch (PDOException $e) {
     $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
