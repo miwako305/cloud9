@@ -75,18 +75,22 @@ try {
 	$result_msg = '削除しました';
 	var_dump($cart_id);														
     }elseif ($sql_kind === 'buy'){
-    $amount_order = $_POST['amount'];
-    $item_id= $_POST['item_id'];
-    
       $now_date = date('Y-m-d H:i:s');
+       foreach ($rows as $row) {
      $sql =  'INSERT INTO oders (user_id, item_id, amount, create_datetime) 
               VALUES (?, ?, ?, ?)';
               $stmt = $dbh->prepare($sql);
               // SQL文のプレースホルダに値をバインド
        $cart_list=array();
-      var_dump($item_id);
-       $stmt->execute($cart_list);
-    
+        $cart_list[]=$data[$i]['item_id'];
+        $cart_list[]=$data[$i]['amount'];
+        $cart_list[]=$data[$i]['user_id'];
+        $cart_list[]= $now_date;
+        
+       
+       $stmt->execute($cart_list);  
+        $i++;
+       } 
     }
     }
            $sql = 'SELECT
@@ -109,12 +113,9 @@ try {
     
     // レコードの取得
     $rows = $stmt->fetchAll();
-    $buy_item_id = $rows['item_id'];
-    $buy_cart_id = $rows['cart_id'];
-    $buy_amount = $rows['amount'];
-    $price = $rows['price'];
-    $priceamount = $price*$buy_amount; 
+    $_POST['cartdata']=$rows;
     // 1行ずつ結果を配列で取得します
+  
     $i = 0;
     foreach ($rows as $row) {
         $data[$i]['item_id']   = htmlspecialchars($row['item_id'],   ENT_QUOTES, 'UTF-8');
@@ -125,13 +126,12 @@ try {
         $data[$i]['cart_id']      = htmlspecialchars($row['cart_id'],      ENT_QUOTES, 'UTF-8');
         $i++;
        } 
-    $cartitem_id[]=$row['item_id'];
-    
+
 }catch (PDOException $e) {
     $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
     var_dump($e);
     
 }
-
+     
 // テンプレートファイル読み込み
 include_once'view/cart.php';

@@ -85,7 +85,8 @@
               <form method="post" action= "buy.php" >
                       <input type="hidden" name="sql_kind" value= "buy">
                                            <?php  }  ?>
-                      <input type="submit" class="subumitbuttn" value="購入する"> 
+                      <input type="submit" class="subumitbuttn" value="購入する">
+                       <input type="hidden" name="sql_kind" value= "cart_buy">
                 </form>
                 <? php } ?>
             <td class ="textbottum"> 

@@ -22,8 +22,6 @@ $img_dir= './img/';  // 画像のディレクトリ
 $err_msg= [];   // エラーメッセージを格納する配列
 ///仮染めユーザ-
 $user_id = $_SESSION['user_id'];
-
-
 try {
   // データベースに接続
   $dbh = new PDO($dsn, $username, $password);
