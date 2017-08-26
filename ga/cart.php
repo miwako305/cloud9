@@ -74,24 +74,25 @@ try {
 	// 表示メッセージの設定
 	$result_msg = '削除しました';
 	var_dump($cart_id);														
-    }elseif ($sql_kind === 'buy'){
-      $now_date = date('Y-m-d H:i:s');
-       foreach ($rows as $row) {
+    }elseif ($sql_kind === 'buy') {
+      $now = date('Y-m-d H:i:s');   
+       for ($i=0;  $i<2; $i++) {
      $sql =  'INSERT INTO oders (user_id, item_id, amount, create_datetime) 
               VALUES (?, ?, ?, ?)';
               $stmt = $dbh->prepare($sql);
               // SQL文のプレースホルダに値をバインド
-       $cart_list=array();
+        $cart_list=array();
+        $cart_list[]=$iuser_id;
         $cart_list[]=$data[$i]['item_id'];
         $cart_list[]=$data[$i]['amount'];
-        $cart_list[]=$data[$i]['user_id'];
-        $cart_list[]= $now_date;
-        
-       
+        $cart_list[]= $now_date;   
        $stmt->execute($cart_list);  
-        $i++;
        } 
+ 
+       var_dump($now);
+       var_dump($cart_list);
     }
+    
     }
            $sql = 'SELECT
               items_master.item_id,
@@ -126,7 +127,15 @@ try {
         $data[$i]['cart_id']      = htmlspecialchars($row['cart_id'],      ENT_QUOTES, 'UTF-8');
         $i++;
        } 
-
+    for($i = 0; $i<2; $i++){
+       $data_item= $data[$i]['item_id'];
+       $data_name= $data[$i]['item_name'];
+       $data_amount= $data[$i]['amount'];
+       $datalist[]=$user_id;
+       $datalist_item[]=$data_item;
+       $datalist_amount[]=$data_amount;
+    }
+    $_POST['datalist_item']=$datalist_item;
 }catch (PDOException $e) {
     $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
     var_dump($e);

@@ -82,8 +82,10 @@
               <td id="sumbox"> 請求金額：<?php print ""; ?></td><br>
              <td></td>
               <td class ="textbottum"> 
+              <!--ここからコンテンツ<form method="post" action= "buy.php" >　　--> 
               <form method="post" action= "buy.php" >
-                      <input type="hidden" name="sql_kind" value= "buy">
+             <input type="hidden" name="sql_kind" value= "buy">
+             <input type="hidden" name="datalist_item" value= $datalist_item >
                                            <?php  }  ?>
                       <input type="submit" class="subumitbuttn" value="購入する">
                        <input type="hidden" name="sql_kind" value= "cart_buy">
