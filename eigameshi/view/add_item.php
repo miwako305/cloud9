@@ -9,14 +9,11 @@
     <link rel="icon" href="./img/icon/favicon.ico" type="image/png" sizes="18x18">
     <meta name="description" content="いつもの食卓をちょっぴり豪勢に！主婦からの投稿が多いので、誰でも作れる簡単レシピが沢山掲載されております！">
     <meta name="keywords" content="CookCamp,クックキャンプ,レシピ,献立,簡単,料理,recipe">
-
     <title>[管理飯]</title>
     <style>
         .status_false {
             background-color: #A9A9A9;
-
         }
-
         .now_item {
             text_align: left;
             display: block;
@@ -57,15 +54,13 @@
         <table>
             <caption>
                 <tr>
-                    <th></th>
-                    <th>登録商品情報</th>
-                    <th></th>
                     <th>商品情報変更</th>
                 </tr>
             </caption>
             <tr>
                 <th></th>
                 <th></th>
+                <th>登録商品情報</th>
                 <th>画像</th>
                 <th>商品名</th>
                 <th>価格</th>
@@ -106,28 +101,28 @@
                     </th>
                     <th>
                         <form method="post">
-                            <input type="text" class="input_text_width text_align_right" name="item_name"> &nbsp;&nbsp; <input type="submit" value="変更">
+                            <input type="text" class="input_text_width text_align_right" name="item_name"　value="<?php print $value['stock']; ?>" > &nbsp;&nbsp; <input type="submit" value="商品名変更">
                             <input type="hidden" name="sql_kind" value="update_item_name">
                             <input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
                         </form>
                     </th>
                     <th>
                         <form method="post">
-                            <input type="text" class="input_text_width text_align_right" name="update_price" value="<?php print $value['price']; ?>">円&nbsp;&nbsp;<input type="submit" value="変更">
+                            <input type="text" class="input_text_width text_align_right" name="update_price" value="<?php print $value['price']; ?>">円&nbsp;&nbsp;<input type="submit" value="価格変更">
                             <input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
                             <input type="hidden" name="sql_kind" value="update_price">
                         </form>
                     </th>
                     <th>
                         <form method="post">
-                            <input type="text" class="input_text_width text_align_right" name="update_stock" value="<?php print $value['stock']; ?>">個&nbsp;&nbsp;<input type="submit" value="変更">
+                            <input type="text" class="input_text_width text_align_right" name="update_stock" value="<?php print $value['stock']; ?>">個&nbsp;&nbsp;<input type="submit" value="在庫変更">
                             <input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
                             <input type="hidden" name="sql_kind" value="update_stock">
                         </form>
                     </th>
                     <th>
                         <form method="post">
-                            <input type="submit" value="削除">
+                            <input type="submit" value="データ削除">
                             <input type="hidden" name="sql_kind" value="delete">
                             <input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
                         </form>

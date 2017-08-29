@@ -1,4 +1,5 @@
 <?php
+/* 商品一覧ページ */
 session_start();
 if (isset($_SESSION['user_id']) === true) {
     $user_id = $_SESSION['user_id'];

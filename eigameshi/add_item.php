@@ -8,28 +8,22 @@ $charset = 'utf8'; // データベースの文字コード
                     
 // MySQL用のDNS文字列
 $dsn = 'mysql:dbname=' . $dbname . ';host=' . $host . ';charset=' . $charset;
-
 $img_dir = './img/'; // 画像のディレクトリ
-
 $sql_kind = ''; // SQL処理の種類
 $result_msg = ''; // 実行結果のメッセージ
 $data = []; // DBから取得した値を格納する配列
 $err_msg = []; // エラーメッセージを格納する配列
-                  
 // SQL処理を取得
 if (isset($_POST['sql_kind']) === TRUE) {
     $sql_kind = $_POST['sql_kind'];
 }
-
 // 商品追加の場合は最初に入力項目をチェックする
 if ($sql_kind === 'insert') {
-    
     $new_name = '';
     $new_price = '';
     $new_stock = '';
     $new_status = '';
     $new_img = '';
-    
     if (isset($_POST['new_name']) === TRUE) {
         // 半角・全角空白のトリム
         $new_name = preg_replace('/\A[ \s]*|[ \s]*\z/u', '', $_POST['new_name']);
@@ -47,7 +41,6 @@ if ($sql_kind === 'insert') {
     
     // HTTP POST でファイルがアップロードされたか確認
     if (is_uploaded_file($_FILES['new_img']['tmp_name']) === TRUE) {
-        
         $new_img = $_FILES['new_img']['name'];
         
         // 画像の拡張子取得
@@ -64,7 +57,6 @@ if ($sql_kind === 'insert') {
             
             // 同名ファイルが存在するか確認
             if (is_file($img_dir . $new_img) !== TRUE) {
-                
                 // ファイルを移動し保存
                 if (move_uploaded_file($_FILES['new_img']['tmp_name'], $img_dir . $new_img) !== TRUE) {
                     $err_msg[] = 'ファイルアップロードに失敗しました';
@@ -96,7 +88,6 @@ if ($sql_kind === 'insert') {
     }
     // 画像
 } else if ($sql_kind === 'update_img') {
-    
     $update_img = '';
     $item_id = '';
     if (isset($_FILES['update_img']['tmp_name']) === TRUE) {

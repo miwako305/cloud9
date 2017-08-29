@@ -1,5 +1,5 @@
 <?php
-/* 最終課題の会員登録ページ */
+/* 会員登録ページ */
 session_start();
 // データベースの接続情報
 
@@ -12,13 +12,11 @@ $err_msg = []; // エラーメッセージ用の配列
 $result_msg = ''; // 実行結果のメッセージ
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    $user_name = ''; // 初期化
+    // 初期化
+    $user_name = '';
     $userps = '';
-    // 今見えていますか？login.phpですおっとこちらにいましたね＾＾
-    // まず、先ほどのユーザー登録ができないエラーはloginform.phpの69行目が原因です。見て見ますね移動しましょう。はい
-    if (isset($_POST['user_name']) === TRUE) { // issetでのチェック
-        $user_name = preg_replace('/^[\s　]+|[\s　]+$/u', '', $_POST['user_name']); // 全角と半角の空白を取り除く。受け取り
+    if (isset($_POST['user_name']) === TRUE) { 
+        $user_name = preg_replace('/^[\s　]+|[\s　]+$/u', '', $_POST['user_name']); 
     }
     // ここからエラーチェック
     if ($user_name === '') { // 未入力チェック
@@ -51,10 +49,6 @@ if (count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
         // 現在日時を取得
         $created_at = date('Y-m-d H:i:s');
         $user_id = "";
-        // select文で重複ユーザーの確認
-        // はい、そうですね。それに伴ってこう変わります。ではもう一度ログインして見ましょう。はい
-        // 入れましたか？hairemashita^_^hai
-        // オッケーです＾＾ではtopmenu.phpの上部に移動しましょう！
         $sql = 'SELECT
             user_id 
             FROM users
@@ -68,19 +62,16 @@ if (count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $rows = $stmt->fetchAll();
         
         if (count($rows) >= 1) {
-            $_SESSION['user_name'] = $user_name; // ここも本来不要ですが、害がなさそうなので一応残します。
+            $_SESSION['user_name'] = $user_name;
             $_SESSION['user_id'] = $rows[0]['user_id'];
             header('Location: topmenu.php');
-            exit(); // header関数によるリダイレクトは、exitを必ずワンセットでつける必要があります。
+            exit();
         } else {
             header('Location: login.php');
-            exit(); // ここはワンセットになります。
-                        // あとは、ログイン後のページでログインチェックを直さないとログインしたあと
-                        // チェックで弾かれてしまいます。topmenu.phpの上部に移動しましょう。 //
-        }
+            exit();
+            }
     } catch (PDOException $e) {
         $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。' . $e->getMessage();
-        // header('Location: login.php');ここは何もする必要はありません。
     }
 }
 // テンプレートファイル読み込み

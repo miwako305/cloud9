@@ -1,4 +1,5 @@
 <?php
+/* 商品購入ページ */
 session_start();
 if (isset($_SESSION['user_id']) === true) {
     $user_id = $_SESSION['user_id'];
@@ -51,7 +52,7 @@ try {
 </head>
 <body>
 	購入ありがとうございました。
-	<a href="/ga/topmenu.php">商品一覧に戻る</a>
+	<a href="/eigameshi/topmenu.php">商品一覧に戻る</a>
 	</td>
 </body>
 </html>

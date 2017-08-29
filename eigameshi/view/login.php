@@ -1,6 +1,6 @@
+<!--ログインページ -->
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <title>映画飯 [ログイン]</title>
@@ -16,15 +16,13 @@
             <table div="heddercontainer">
                 <td>
                     <img src="img/structure/logo.png" width="300" height="auto"><br>
-                    <img alt="映画飯ヘッダー画" , src="img/structure/hedder.png"></img>
+                    <img alt="映画飯ヘッダー画" , src="img/structure/hedder.png" width="2000" height="auto"></img>
                 </td>
             </table>
         </div>
         <div id="main">
             <div class="maincontener">
-                <th>
                     <img alt="映画飯TOP画" , src="img/structure/logintop.png">
-                </th>
                 <div id="login_box">
                     <table id="formcontainer">
                         <td width="250">
@@ -56,7 +54,7 @@
             <?php print $value; ?>
         </p>
         <?php } ?>
-        <img alt="映画飯ヘッダー画" , src="img/structure/fotter.png"></img>
+        <img alt="映画飯ヘッダー画" , src="img/structure/fotter.png" width="2000"></img>
         <tr>
     </div>
 </body>
