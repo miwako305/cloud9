@@ -13,7 +13,6 @@ $username = 'miwako305';   // MySQLのユーザ名
 $password = '';       // MySQLのパスワード
 $dbname   = 'ga';     // MySQLのDB名
 $charset  = 'utf8';  // データベースの文字コード
-
 // MySQL用のDNS文字列
 $dsn = 'mysql:dbname='.$dbname.';host='.$host.';charset='.$charset;
 $img_dir    = './img/';  // 画像のディレクトリ
@@ -33,7 +32,6 @@ if (isset($_POST['amount']) === TRUE) {
 if(isset($_POST['sql_kind']) === true ){
   $sql_kind =$_POST['sql_kind'];
 }
-
 if (isset($_POST['cart_id']) === TRUE) {
   $cart_id = $_POST['cart_id'];
 }
@@ -56,8 +54,7 @@ try {
              SET amount = ?
              WHERE item_id = ?';
              
-      $stmt = $dbh->prepare($sql);
-      
+      $stmt = $dbh->prepare($sql);     
       $stmt->bindValue(1, $amount,     PDO::PARAM_INT);
       $stmt->bindValue(2, $item_id,    PDO::PARAM_INT);      
       $stmt->bindValue(3, $user_id,    PDO::PARAM_INT);
@@ -73,8 +70,7 @@ try {
 	// SQLを実行
 	$stmt->execute();
 	// 表示メッセージの設定
-	$result_msg = '削除しました';
-	var_dump($cart_id);														
+	$result_msg = '削除しました';														
     }  
     }
            $sql = 'SELECT
@@ -110,7 +106,6 @@ try {
         $sum  += $total[$i];
       $i++;
        }
-       //var_dump($sum);
      if ($sql_kind === 'buy') {
      for ($i=0;  $i<$max; $i++) {
       $now = date('Y-m-d H:i:s');   
@@ -129,8 +124,7 @@ try {
       
 }catch (PDOException $e) {
     $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。'.$e->getMessage();
-    var_dump($e);
-    
+    var_dump($e);    
 }
 // テンプレートファイル読み込み
 include_once'view/cart.php';
