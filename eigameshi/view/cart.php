@@ -92,7 +92,7 @@
              </form>
             
             <td class ="textbottum"> 
-              <a href = "/ga/topmenu.php">商品一覧に戻る</a></td>
+              <a href = "/eigameshi/topmenu.php">商品一覧に戻る</a></td>
             </table>
            </div>
          </div><br>

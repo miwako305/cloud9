@@ -92,6 +92,7 @@ try {
     $stmt->execute();  
     // レコードの取得
     $rows = $stmt->fetchAll();
+    $max =count($rows);
     $i='';
     $sum='';
     // 1行ずつ結果を配列で取得します    

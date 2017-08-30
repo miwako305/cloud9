@@ -75,5 +75,5 @@ if (count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 // テンプレートファイル読み込み
-include_once './view/login.php';
+include_once 'view/login.php';
     

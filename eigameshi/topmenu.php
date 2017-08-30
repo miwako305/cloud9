@@ -32,7 +32,7 @@ try {
     $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     // 現在日時を取得
     $now_date = date('Y-m-d H:i:s');
-    
+    //商品一覧の取得
     $sql = 'SELECT
 									items_master.item_id,
 									items_master.item_name,
@@ -60,10 +60,10 @@ try {
         $data[$i]['status'] = htmlspecialchars($row['status'], ENT_QUOTES, 'UTF-8');
         $i ++;
     }
-    
+    //*カート中の商品数のカウント記載予定
+    //
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $item_id = $_POST['item_id'];
-        
         // select文でカート内のデータを取得
         $sql = 'SELECT
                user_id,
@@ -80,7 +80,7 @@ try {
         $stmt->execute();
         // カート内のレコードの取得
         $cart_list = $stmt->fetchAll();
-        
+        $max = count($cart_list);
         // カート内に該当のレコードがあるかどうかをチェック
         if (count($cart_list) >= 1) {
             // レコードが一つ以上取得できれば
@@ -100,7 +100,6 @@ try {
         } else {
             $item_id = $_POST['item_id'];
             $amount = $_POST['amount'];
-            
             $sql = 'INSERT INTO carts (user_id, item_id, amount, create_datetime) 
               VALUES (?, ?, ?, ?)';
             $stmt = $dbh->prepare($sql);
@@ -109,7 +108,7 @@ try {
             $stmt->bindValue(2, $item_id, PDO::PARAM_INT);
             $stmt->bindValue(3, $amount, PDO::PARAM_INT);
             $stmt->bindValue(4, $now_date, PDO::PARAM_STR);
-            
+            //SQL実行
             $stmt->execute();
         }
     }
