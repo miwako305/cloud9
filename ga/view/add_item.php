@@ -19,9 +19,14 @@
             display: block;
             font-size: 0.5ex;
         }
+        th{ 
+            border-bottom-style:ridge;
+        }
+        #add_box{
+            border-bottom-style:ridge;
+        }
     </style>
 </head>
-
 <body>
     <?php if (empty($result_msg) !== TRUE) { ?>
     <p>
@@ -52,21 +57,16 @@
     <section>
 
         <table>
-            <caption>
-                <tr>
-                    <th>商品情報変更</th>
-                </tr>
-            </caption>
-            <tr>
-                <th></th>
+            <caption>商品情報</caption>
+            <tr id ="add_box">
                 <th></th>
                 <th>登録商品情報</th>
-                <th>画像</th>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>在庫数</th>
-                <th>削除</th>
-                <th>公開</th>
+                <th>登録情報変更</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
             <?php foreach ($data as $value)  { ?>
             <?php if ( $value['status'] === '1' ) { ?>
@@ -78,19 +78,9 @@
                         <img src="<?php print $img_dir . $value['img']; ?>" height="100" width="100"></br>
                     </th>
                     <th class="now_item">
-                        <td><a class="now_item">商品名:</a>
-                            <a class="now_item">
-                                <?php print $value['item_name']; ?>
-                            </a>
-                            </br>
-                            <a class="now_item">商品価格：</a>
-                            <a>
-                                <?php print $value['price']; ?>円</a>
-                            </br>
-                            <a class="now_item">商品在庫：</a>
-                            <a>
-                                <?php print $value['stock']; ?>個</a>
-                        </td>
+                        <a class="now_item">商品名:<?php print $value['item_name']; ?></a></br>
+                        <a class="now_item">商品価格：<?php print $value['price']; ?>円</a></br>
+                        <a class="now_item">商品在庫:<?php print $value['stock']; ?>個</a>
                     </th>
                     <th>
                         <form method="post" enctype="multipart/form-data">
@@ -151,5 +141,4 @@
         </table>
     </section>
 </body>
-
 </html>
