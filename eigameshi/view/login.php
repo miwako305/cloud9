@@ -10,6 +10,15 @@
     <meta name="keywords" content="映画,ゲテモノ,面白い,料理,飯,料理,洋画">
     <link rel="icon" href="./img/icon/favicon.ico" type="image/png" sizes="19x19">
 </head>
+<style type="text/css">
+    #main{
+background-color:rgb(60, 60, 70);
+margin:0 auto;
+width:100%;
+height:auto;
+}
+
+</style>
 <body>
     <div id="pagebody">
         <div id="headder">
@@ -27,16 +36,19 @@
                     <table id="formcontainer">
                         <td width="250">
                             <form method="post" id="formcontainer">
-                                <label for="user_name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ユーザ名:&nbsp;</label<>
-                                         </a><input type="text" class="block" name="user_name">
-                                         <label for="userps">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;パスワード:</label>
-                                </a><input type="password" class="block" name="userps">
-                                </a><input type="hidden" name="sql_kind" value="login">
-                                </a><input type="submit" value="ログイン">
+                                <label for="user_name">ユーザ名:
+                                     <a><input type="text" class="block" name="user_name"></a>
+                                 </label>
+                                 <label for="userps">
+                                     <a> パスワード:</a>
+                                     <input type="password" class="block" name="userps">
+                                 </label>
+                                 <input type="hidden" name="sql_kind" value="login">
+                                 <input type="submit" value="ログイン">
                             </form>
                             <div class="loginform.php">
                                 <form action="loginform.php">
-                                    <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <input type="submit" value="新規のお客様はこちらから">
+                                    <input type="submit" value="新規のお客様はこちらから">
                                 </form>
                             </div>
                         </td>
@@ -54,7 +66,11 @@
             <?php print $value; ?>
         </p>
         <?php } ?>
+<<<<<<< HEAD
         <img alt="映画飯ヘッダー画" , src="img/structure/fotter.png" width="2000"></img>
+=======
+        <img alt="映画飯ヘッダー画" , src="img/structure/fotter.png" width= "2000"></img>
+>>>>>>> 48365b6... コミットメッセージ
         <tr>
     </div>
 </body>
