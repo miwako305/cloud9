@@ -61,7 +61,7 @@
                       <option value="<?php print $i;  ?>"><?php print $i;  ?></option>
                       <?php } ?>
                       </select>
-                      <a>&nbsp;&nbsp;個</a>             
+                      <a><a>nbsp;<a>nbsp;個</a>             
                       <input type="submit" class="subumitbuttn" value="数量変更"> 
                      </form></span><br>
                 　</td>
