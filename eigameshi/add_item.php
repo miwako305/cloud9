@@ -15,8 +15,11 @@ $result_msg = ''; // 実行結果のメッセージ
 $data = []; // DBから取得した値を格納する配列
 $err_msg = []; // エラーメッセージを格納する配列
 <<<<<<< HEAD
+<<<<<<< HEAD
                
 =======
+=======
+>>>>>>> refs/remotes/origin/master
 =======
 $host     = 'localhost';
 $username = 'miwako305';   // MySQLのユーザ名
@@ -33,7 +36,10 @@ $data       = [];     // DBから取得した値を格納する配列
 $err_msg    = [];     // エラーメッセージを格納する配列
 
 >>>>>>> 48365b6... コミットメッセージ
+<<<<<<< HEAD
 >>>>>>> f19b02198773e104a2e41682fba4f0953e7592d9
+=======
+>>>>>>> refs/remotes/origin/master
 // SQL処理を取得
 if (isset($_POST['sql_kind']) === TRUE) {
   $sql_kind = $_POST['sql_kind'];
@@ -651,7 +657,10 @@ if (isset($_POST['item_id']) === TRUE) {
                   // SQL文を作成
                   $sql = 'SELECT
 >>>>>>> 48365b6... コミットメッセージ
+<<<<<<< HEAD
 >>>>>>> f19b02198773e104a2e41682fba4f0953e7592d9
+=======
+>>>>>>> refs/remotes/origin/master
                   items_master.item_id,
                   items_master.item_name,
                   items_master.price,
@@ -660,6 +669,7 @@ if (isset($_POST['item_id']) === TRUE) {
                   items_master.status
                   FROM items_master JOIN items_stock
                   ON  items_master.item_id = items_stock.item_id';
+<<<<<<< HEAD
 <<<<<<< HEAD
     // SQL文を実行する準備
     $stmt = $dbh->prepare($sql);
@@ -683,6 +693,8 @@ if (isset($_POST['item_id']) === TRUE) {
 }
 
 =======
+=======
+>>>>>>> refs/remotes/origin/master
                   // SQL文を実行する準備
                   $stmt = $dbh->prepare($sql);
                   // SQLを実行
@@ -706,5 +718,8 @@ if (isset($_POST['item_id']) === TRUE) {
           }
 
 //
+<<<<<<< HEAD
 >>>>>>> f19b02198773e104a2e41682fba4f0953e7592d9
+=======
+>>>>>>> refs/remotes/origin/master
 include_once './view/add_item.php';
