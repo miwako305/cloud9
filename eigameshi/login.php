@@ -1,5 +1,5 @@
 <?php
-/* 会員登録ページ */
+/* 会員ログインページ */
 session_start();
 // データベースの接続情報
 
@@ -15,10 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 初期化
     $user_name = '';
     $userps = '';
+    $user_phone = '';
+    $user_adress= '';
+    $user_mail='';
     if (isset($_POST['user_name']) === TRUE) { 
         $user_name = preg_replace('/^[\s　]+|[\s　]+$/u', '', $_POST['user_name']); 
     }
-    // ここからエラーチェック
+    //1.ここからエラーチェック(ユーザー名)
     if ($user_name === '') { // 未入力チェック
         $err_msg[] = 'ユーザー名を入力してください。';
     } else if (preg_match('/^[a-z\d_]{6,20}$/i', $_POST['userps']) !== 1) { // 正規表現チェック
@@ -29,14 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userps = preg_replace('/^[\s　]+|[\s ]+$/u', '', $_POST['userps']); // 全角と半角の空白を取り除く。受け取り
     }
     
-    // ここからエラーチェック
+    //２.ここからエラーチェック（パスワード）
     if ($userps === '') { // 未入力チェック
         $err_msg[] = 'パスワードを入力してください。';
     } elseif (preg_match('/^[a-z\d_]{6,20}$/i', $_POST['userps']) !== 1) { // 正規表現チェック
         $err_msg[] = "パスワードは半角英数字6文字以上でご入力ください。";
     }
 }
-
 // DB接続前にcount($err_msg)をチェック
 if (count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
     
@@ -60,7 +62,6 @@ if (count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         // レコードの取得
         $rows = $stmt->fetchAll();
-        
         if (count($rows) >= 1) {
             $_SESSION['user_name'] = $user_name;
             $_SESSION['user_id'] = $rows[0]['user_id'];

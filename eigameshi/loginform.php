@@ -1,42 +1,58 @@
 <?php
-/* 最終課題の会員登録ページ */
-
+/* 会員登録ページ */
 // データベースの接続情報
 // $dsn の代わりにDSNが使えるようになりました。
 define('DB_USER', 'miwako305'); // MySQLのユーザ名
 define('DB_PASSWD', ''); // MySQLのパスワード
 define('DSN', 'mysql:dbname=ga;host=localhost;charset=utf8');
-
-$date = [];
+$tel_regex = '/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}/';
 $err_msg = []; // エラーメッセージ用の配列
 $result_msg = ''; // 実行結果のメッセージ
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    $user_name = ''; // 初期化
+    //各種変数の初期化
+    $user_name = '';
     $userps = '';
-    
-    if (isset($_POST['user_name']) === TRUE) { // issetでのチェック
-        $user_name = preg_replace('/^[\s　]+|[\s　]+$/u', '', $_POST['user_name']); // 全角と半角の空白を取り除く。受け取り
+    $user_phone= '';
+    if (isset($_POST['user_name']) === TRUE) {
+        // issetでのチェック
+        $user_name = preg_replace('/^[\s　]+|[\s　]+$/u', '', $_POST['user_name']);
+        // 全角と半角の空白を取り除く。受け取り
     }
-    // ここからエラーチェック
-    if ($user_name === '') { // 未入力チェック
-        $err_msg[] = 'ユーザー名を入力してください。'; // 閉じかっこ一個多くなっちゃいましたね＾＾//ありがとうございます
+    // 1.ここからエラーチェック（ユーザー名）
+    if ($user_name === '') {
+        // 未入力チェック
+        $err_msg[] = 'ユーザー名を入力してください。';
     } else if (preg_match('/^[a-z\d_]{6,20}$/i', $_POST['user_name']) !== 1) { // 正規表現チェック
         $err_msg[] = "ユーザー名は半角英数字6文字以上でご入力ください。";
     }
-    // はい。そうですね！もう一度確認してきます！
-    // 登録できました！次はログインできないみたいですので、login.phpに移動します。
-    if (isset($_POST['userps']) === TRUE) { // issetでのチェック
-        $userps = preg_replace('/^[\s　]+|[\s　]+$/u', '', $_POST['userps']); // 全角と半角の空白を取り除く。受け取り
+    // 2.ここからエラーチェック（パスワード）
+    // 2.1未入力チェック
+    if (isset($_POST['userps']) === TRUE) {
+        // issetで、$_POST［］の入力がしっかり入っているかのチェック
+        // 全角と半角の空白を取り除く。(頭と末尾の空白のみ）値の受け取り
+        $userps =preg_replace('/\A[　\s]*|[　\s]*\z/u','', $_POST['userps']);
+        var_dump($userps);
     }
-    // ここからエラーチェック
-    if ($userps === '') { // 未入力チェック //正規表現チェック
-        $err_msg[] = 'パスワードを入力してください。'; // 全角のかっこになっちゃったみたいです。オッケーです＾＾はい＾＾またお気軽にどうぞ！ありがとうございます
-    } else if (preg_match('/^[a-z\d_]{6,20}$/i', $_POST['userps']) !== 1) { // 正規表現チェック
+    if ($userps === '') {
+        // 2.2 入力チェック
+        $err_msg[] = 'パスワードを入力してください。';
+    } else if (preg_match('/^[a-z\d_]{6,20}$/u', $userps) !== 1) {
+        // 正規表現チェック
         $err_msg[] = "パスワードは半角英数字6文字以上でご入力ください。";
     }
-    
+    // 3.ここからエラーチェック（電話番号）
+    if (isset($_POST['user_phone']) === TRUE) {
+    // 全角と半角の空白を取り除く。(頭と末尾の空白のみ）値の受け取り
+        $user_phone = preg_replace('/\A[　\s]*|[　\s]*\z/u', '', $_POST['user_phone']);
+    }
+    if($user_phone === '') {
+        $err_msg[] = '電話番号を入力してください。';
+       }else if (preg_match('/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/',$user_phone) !== 1) {
+        $err_msg[] = "電話番号は半角入力で記入してください";
+       }
+    // 4.ここからエラーチェック（住所）
+    // 5.ここからエラーチェック（メールアドレス）
     // DB接続前にcount($err_msg)をチェック
     if (count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
         
@@ -49,7 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             // 現在日時を取得
             $created_at = date('Y-m-d H:i:s');
-            
             // select文で重複ユーザーの確認
             $sql = 'SELECT
             user_name
@@ -63,14 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
             // レコードの取得
             $rows = $stmt->fetchAll();
-            
-            // こちらです。見えますか？はい
-            
-            // このコメントと処理内容が違っています。select文の実行結果が入っているのは$rowsなので、となります。
-            // これでこの部分は正しく動くはずなので確認して見ましょう。
-            // 良かったです＾＾では、このあとログインしてもログイン後にチェックで弾かれるので、topmenu.phpに移動しましょう。hai
-            
-            // select文の実行結果が１行以上あればエラーメッセージを表示dekimashita!
             if (count($rows) >= 1) {
                 // if ($_POST['user_name'] === $user_name) {
                 $err_msg[] = 'ユーザ名がすでに登録されています。';

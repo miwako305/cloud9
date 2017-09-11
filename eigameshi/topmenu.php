@@ -9,14 +9,12 @@ if (isset($_SESSION['user_id']) === true) {
     exit();
 }
 // MySQL接続情報
-$host = 'localhost';
-$username = 'miwako305'; // MySQLのユーザ名
-$password = ''; // MySQLのパスワード
-$dbname = 'ga'; // MySQLのDB名
-$charset = 'utf8'; // データベースの文字コード
-                    
+// $dsn の代わりにDSNが使えるようになりました。
+define('DB_USER', 'miwako305'); // MySQLのユーザ名
+define('DB_PASSWD', ''); // MySQLのパスワード
+define('DSN', 'mysql:dbname=ga;host=localhost;charset=utf8');
+
 // MySQL用のDNS文字列
-$dsn = 'mysql:dbname=' . $dbname . ';host=' . $host . ';charset=' . $charset;
 $img_dir = './img/'; // 画像のディレクトリ
 $sql_kind = ''; // SQL処理の種類
 $result_msg = ''; // 実行結果のメッセージ
@@ -27,7 +25,7 @@ $user_id = $_SESSION['user_id'];
 
 try {
     // データベースに接続
-    $dbh = new PDO($dsn, $username, $password);
+    $dbh = new PDO(DSN, DB_USER, DB_PASSWD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     // 現在日時を取得
