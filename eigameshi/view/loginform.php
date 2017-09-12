@@ -13,107 +13,124 @@
 	sizes="19x19">
 </head>
 <style>
-    #pagebody {
-        margin: 0 auto;
-        font-size: 2ex;
-        max-width:980px;
-    }
+#pagebody {
+	margin: 0 auto;
+	font-size: 2ex;
+	max-width: 980px;
+	height: 900px;
+	position: relative;
+}
+
 #login_box {
-        padding: 0;
-        margin: 0 auto;
-        font-size: 2ex;
-        height: 600px;
-        width: 800px;
-    }
-    #headder{
-          margin: 0 auto; 
-          padding:0;
-          height: 200px;
-    } 
-
-#login-inform{
-    margin:0 auto;
-    width:50%;
-}
-#login_box{
-    font-size:0.75em;
-display:block;
-float: left;
-width:140px;
-border-radius: 15px;
+	padding: 0;
+	margin: 0 auto;
+	font-size: 2ex;
+	height: 600px;
+	width: 800px;
 }
 
+#headder {
+	margin: 0 auto;
+	padding: 0;
+	height: 200px;
+}
+
+.headertitle {
+	width: 80%;
+	height: 180px;
+}
+
+#login-inform {
+	margin: 0 auto;
+	width: 80%;
+	height: 600px;
+}
+
+#login-inform-box {
+	margin: 30px;
+	width: 90%;
+	padding-bottom: 30px;
+}
+
+.block {
+	font-size: 2ex;
+}
 </style>
 <body>
-    <div id="pagebody">
-        <div id="headder">
-            <table div="heddercontainer">
-                    <img src="img/structure/logo.png" width="500" height="auto"><br>
-                    <td>
-                        <a class="headertitle">
-                            <h1>新規登録画面</h1>
-                        </a>
-                    </td>
-            </table>
-        </div>
-        <div id="main">
-            <div id="maincontener">
-                <div id="login_box">
-                    <table id="inform">
-                        <form method="post" id="login-inform">
-                            <label for="user_name">
-                                    <a>ユーザ名:</a>
-                                    <input type="text" class="block" name="user_name">
-                             </label>
-                            <label for="userps">
-                                   <a>パスワード:</a>
-                                    <input type="password" class="block" name="userps">
-                             </label>
-                            <label for="user_adress">
-                                      <a>住所:</a>
-                                      <input type="text" class="block" name="user_adress">
-                             </label>
-                            <label for="user_mail">
-                                     <a>メールアドレス:</a>
-                                    <input type="text" class="block" name="user_mail">
-                             </label>
-                            <label for="user_phone">
-                                <a>電話番号:;</a>
-                                <input type="text" class="block" name="user_phone">
-                             </label>
-                            <input type="hidden" name="sql_kind" value="login">
-                            <input type="submit" value="新規登録">
-                        </form>
-                    </table>
-                </div>
-            </div>
-        <a class="backme" href="login.php"> ログイン画面に戻る</a>
-        <div>
+	<div id="pagebody">
+		<div id="headder">
+			<div="heddercontainer">
+				<img src="img/structure/logo.png" width="500" height="auto"><br>
+				<h1>新規登録画面</h1>
+			</div>
+		</div>
+		<div id="maincontener">
+			<div id="login_box">
+				<div class="inform">
+					<form method="post" id="login-inform">
+						<div class="login-inform-box">
+							<label for="user_name"> ユーザ名: </label> <input type="text"
+								class="block" name="user_name">
+
+						</div>
+						<div class="login-inform-box">
+							<label for="userps">パスワード:</label> <input type="password"
+								class="block" name="userps">
+						</div>
+						<div class="login-inform-box">
+							<label for="user_adress"> 住所:</label> <input type="text"
+								class="block" name="user_adress">
+						</div>
+						<div class="login-inform-box">
+							<label for="user_mail"> メールアドレス: </label> <input type="text"
+								class="block" name="user_mail">
+						</div>
+						<div class="login-inform-box">
+							<label for="user_phone"> 電話番号:</label> <input type="text"
+								class="block" name="user_phone">
+						</div>
+						<div class="login-inform-box">
+							<input type="hidden" name="sql_kind" value="login"> <input
+								type="submit" value="新規登録">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<a class="backme" href="login.php"> ログイン画面に戻る</a>
             <?php if (empty($result_msg) !== TRUE) { ?>
             <p>
                 <?php print $result_msg; ?>
             </p>
-            <p>
+		<div>
+			<a>
                 <?php print '名前：'. $user_name; ?>
-            </p>
-            <p>
+            </a>
+			<p>
                 <?php print 'パスワード：'. $userps; ?>
+            </p>
+			<p>
+                <?php print '電話番号：'. $user_phone; ?>
+            </p>
+			<p>
+                <?php print 'メールアドレス：'. $user_mail; ?>
+            </p>
+			<p>
+                <?php print '住所：'. $user_adress; ?>
             </p>
             <?php } ?>
             <?php foreach ($err_msg as $value) { ?>
             <p>
                 <?php print $value; ?>
             </p>
-            <p>
+			<p>
                 <?php print $user_name; ?>
             </p>
-            <p>
+			<p>
                 <?php print $userps; ?>
             </p>
             <?php } ?>
-        </div>
-        </div>
-    </div>
+	     </div>
+	</div>
 </body>
-
 </html>

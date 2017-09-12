@@ -10,10 +10,12 @@ $err_msg = []; // エラーメッセージ用の配列
 $result_msg = ''; // 実行結果のメッセージ
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //各種変数の初期化
+    // 各種変数の初期化
     $user_name = '';
     $userps = '';
-    $user_phone= '';
+    $user_phone = '';
+    $user_mail = '';
+    $user_adress= '';
     if (isset($_POST['user_name']) === TRUE) {
         // issetでのチェック
         $user_name = preg_replace('/^[\s　]+|[\s　]+$/u', '', $_POST['user_name']);
@@ -30,9 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 2.1未入力チェック
     if (isset($_POST['userps']) === TRUE) {
         // issetで、$_POST［］の入力がしっかり入っているかのチェック
-        // 全角と半角の空白を取り除く。(頭と末尾の空白のみ）値の受け取り
-        $userps =preg_replace('/\A[　\s]*|[　\s]*\z/u','', $_POST['userps']);
-        var_dump($userps);
+        // 全角と半角の空白を取り除く。(空白は頭と末尾のみ取り除く）値の受け取り
+        $userps = preg_replace('/\A[　\s]*|[　\s]*\z/u', '', $_POST['userps']);
     }
     if ($userps === '') {
         // 2.2 入力チェック
@@ -43,16 +44,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // 3.ここからエラーチェック（電話番号）
     if (isset($_POST['user_phone']) === TRUE) {
-    // 全角と半角の空白を取り除く。(頭と末尾の空白のみ）値の受け取り
+        // 全角と半角の空白を取り除く。(頭と末尾の空白のみ）値の受け取り
         $user_phone = preg_replace('/\A[　\s]*|[　\s]*\z/u', '', $_POST['user_phone']);
     }
-    if($user_phone === '') {
+    if ($user_phone === '') {
         $err_msg[] = '電話番号を入力してください。';
-       }else if (preg_match('/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/',$user_phone) !== 1) {
+    } else if (preg_match('/^[0-9]{8,9}$/', $user_phone) !== 1) {
         $err_msg[] = "電話番号は半角入力で記入してください";
-       }
+    }
     // 4.ここからエラーチェック（住所）
+    if (isset($_POST['user_adress']) === TRUE) {
+        // 全角と半角の空白を取り除く。(頭と末尾の空白のみ）値の受け取り
+        $user_adress = preg_replace('/\A[　\s]*|[　\s]*\z/u', '', $_POST['user_adress']);
+    }
+    if ($user_adress === '') {
+        $err_msg[] = '住所を入力してください。';
+    } 
     // 5.ここからエラーチェック（メールアドレス）
+    if (isset($_POST['user_mail']) === TRUE) {
+        // 全角と半角の空白を取り除く。(頭と末尾の空白のみ）値の受け取り
+        $user_adress = preg_replace('/\A[　\s]*|[　\s]*\z/u', '', $_POST['user_mail']);
+    }
+    if ($user_mail === '') {
+        $err_msg[] = 'メールアドレスを入力してください。';
+    } else if (preg_match('|^[0-9a-z_./?-]+@([0-9a-z-]+\.)+[0-9a-z-]+$|', $user_mail) !== 1) {
+        $err_msg[] = "メールアドレスが間違っています";
+    }
+    
     // DB接続前にcount($err_msg)をチェック
     if (count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
         
