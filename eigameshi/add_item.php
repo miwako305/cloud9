@@ -367,4 +367,5 @@ try {
     $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。' . $e->getMessage();
 }
 
-include_once '/view/add_item.php';
+//
+include_once './view/add_item.php';

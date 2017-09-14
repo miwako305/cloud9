@@ -164,11 +164,11 @@ caption {
 				</th>
 				<th>
 					<form method="post">
-						<input type="text" class="input_text_price_width" name="update_price" value="<?php print $value['price']; ?>">
-						円
-						<input type="submit" value="価格名変更"> 
-						<input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>"> 
-						<input type="hidden" name="sql_kind" value="update_price">
+						<input type="text" class="input_text_price_width"
+							name="update_price" value="<?php print $value['price']; ?>">円<input
+							type="submit" value="価格名変更"> <input type="hidden" name="item_id"
+							value="<?php print $value['item_id']; ?>"> <input type="hidden"
+							name="sql_kind" value="update_price">
 					</form>
 				</th>
 				<th>
@@ -187,14 +187,14 @@ caption {
 					</form>
 				</th>
 				<th>
-                    <?php if ( $value['status'] === '1' ) { ?>
+                        <?php if ( $value['status'] === '1' ) { ?>
                     <form method="post">
 						<input type="submit" value="公開→非公開"> 
 						<input type="hidden" name="sql_kind" value="change"> 
 						<input type="hidden" name="change_status" value="0"> 
 						<input type="hidden" name="item_id" value="<?php print $value['item_id']; ?>">
 					</form>
-                    <?php } elseif ( $value['status'] === '0' ) { ?>
+                        <?php } elseif ( $value['status'] === '0' ) { ?>
                     <form method="post">
 						<input type="submit" value="非公開→公開"> <input type="hidden" name="sql_kind" value="change"> 
 						<input type="hidden" name="change_status" value="1"> 
