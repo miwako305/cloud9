@@ -16,21 +16,27 @@ background-color:rgb(60, 60, 70);
 margin:0 auto;
 width:100%;
 height:auto;
+display:flex;
 }
-
+#maincontener{
+    width:100%;
+}
+.hedder_structure,.fotter_structure{
+width:100%;    
+}
 </style>
 <body>
     <div id="pagebody">
         <div id="headder">
-            <table div="heddercontainer">
+            <table div id="heddercontainer">
                 <td>
                     <img src="img/structure/logo.png" width="300" height="auto"><br>
-                    <img alt="映画飯ヘッダー画" , src="img/structure/hedder.png" width="2000" height="auto"></img>
+                    <img alt="映画飯ヘッダー画" , src="img/structure/hedder.png"   class ="hedder_structure"></img>
                 </td>
             </table>
         </div>
         <div id="main">
-            <div class="maincontener">
+            <div id="maincontener">
                     <img alt="映画飯TOP画" , src="img/structure/logintop.png">
                 <div id="login_box">
                     <table id="formcontainer">
@@ -66,11 +72,7 @@ height:auto;
             <?php print $value; ?>
         </p>
         <?php } ?>
-<<<<<<< HEAD
-        <img alt="映画飯ヘッダー画" , src="img/structure/fotter.png" width="2000"></img>
-=======
-        <img alt="映画飯ヘッダー画" , src="img/structure/fotter.png" width= "2000"></img>
->>>>>>> 48365b6... コミットメッセージ
+        <img alt="映画飯フッター画画" , src="img/structure/fotter.png" class ="fotter_structure" ></img>
         <tr>
     </div>
 </body>
