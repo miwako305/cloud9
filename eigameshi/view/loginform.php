@@ -20,6 +20,11 @@
 	height: 900px;
 	position: relative;
 }
+#maincontener{
+    margin: 0 auto;
+    max-width: 980px;
+	height: 900px;
+}
 
 #login_box {
 	padding: 0;
