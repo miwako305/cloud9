@@ -19,11 +19,12 @@
 	max-width: 980px;
 	height: 900px;
 	position: relative;
+	display: block;
 }
-#maincontener{
-    margin: 0 auto;
-    max-width: 980px;
-	height: 900px;
+
+#maincontener {
+	width: 500px;
+	margin: 0 auto;
 }
 
 #login_box {
