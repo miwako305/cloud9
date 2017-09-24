@@ -62,11 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 5.ここからエラーチェック（メールアドレス）
     if (isset($_POST['user_mail']) === TRUE) {
         // 全角と半角の空白を取り除く。(頭と末尾の空白のみ）値の受け取り
-        $user_adress = preg_replace('/\A[　\s]*|[　\s]*\z/u', '', $_POST['user_mail']);
+        $user_mail = preg_replace('/\A[　\s]*|[　\s]*\z/u', '', $_POST['user_mail']);
     }
     if ($user_mail === '') {
         $err_msg[] = 'メールアドレスを入力してください。';
-    } else if (preg_match('|^[0-9a-z_./?-]+@([0-9a-z-]+\.)+[0-9a-z-]+$|', $user_mail) !== 1) {
+    } else if (preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/', $user_mail) !== 1) {
         $err_msg[] = "メールアドレスが間違っています";
     }
     

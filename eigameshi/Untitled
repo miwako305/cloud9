@@ -1,0 +1,30 @@
+		<div>
+			<a>
+                <?php print '名前：'. $user_name; ?>
+            </a>
+			<p>
+                <?php print 'パスワード：'. $userps; ?>
+            </p>
+			<p>
+                <?php print '電話番号：'. $user_phone; ?>
+            </p>
+			<p>
+                <?php print 'メールアドレス：'. $user_mail; ?>
+            </p>
+			<p>
+                <?php print '住所：'. $user_adress; ?>
+            </p>
+            <?php } ?>
+            <?php foreach ($err_msg as $value) { ?>
+            <p>
+                <?php print $value; ?>
+            </p>
+			<p>
+                <?php print $user_name; ?>
+            </p>
+			<p>
+                <?php print $userps; ?>
+            </p>
+            <?php } ?>
+            
+        </div>
