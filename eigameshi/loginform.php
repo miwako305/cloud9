@@ -79,7 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dbh = new PDO(DSN, DB_USER, DB_PASSWD);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-            
             // 現在日時を取得
             $created_at = date('Y-m-d H:i:s');
             // select文で重複ユーザーの確認
@@ -102,25 +101,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (PDOException $e) {
             $err_msg[] = '予期せぬエラーが発生しました。管理者へお問い合わせください。' . $e->getMessage();
         }
-    }
-    
-    if (count($err_msg) === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // 現在日時を取得
         $now_date = date('Y-m-d H:i:s');
         
         // エラーがなければユーザーをinsert
         try {
-            $sql = 'INSERT INTO users (user_name, userps, created_at)
-     VALUES (?, ?, ?)';
+            $sql = 'INSERT INTO users (user_name, userps, created_at ,user_mail, user_adress, user_phone)
+     VALUES (?,?,?,?,?,?)';
             // SQL文を実行する準備
-            
             $stmt = $dbh->prepare($sql);
-            
             // SQL文のプレースホルダに値をバインド
             $stmt->bindValue(1, $user_name, PDO::PARAM_STR);
             $stmt->bindValue(2, $userps, PDO::PARAM_STR);
-            $stmt->bindValue(3, $created_at, PDO::PARAM_STR);
+            $stmt->bindValue(3, $now_date, PDO::PARAM_STR);
+            $stmt->bindValue(4, $user_mail, PDO::PARAM_STR);
+            $stmt->bindValue(5, $user_adress, PDO::PARAM_STR);
+            $stmt->bindValue(6, $user_phone, PDO::PARAM_STR);
             // SQLを実行
             $stmt->execute();
             // レコードの取得

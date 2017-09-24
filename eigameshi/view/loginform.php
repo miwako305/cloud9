@@ -18,7 +18,8 @@ h1{
 }
 
 .atention_msg{
-font-size:4ex;
+font-size:3ex;
+color:#800020 ;
 
     
 }
@@ -117,6 +118,10 @@ label{
      list-style-image: url("img/icon/AttentionTriangle.png");
      flex:1.5;
 }
+.result_msg{
+    font-size:2em;
+    margin-top:1em;
+}
 #fotter{
     border-bottom:#800020 30px;
 	border-style: solid ;
@@ -136,13 +141,14 @@ label{
         <div id ="login_box">
             <div id="inform">
                 <form method="post">
-                    	<div class="login-inform-box">
+                    	<div class="login-inform-box">	
 							<label for="user_name"> ユーザ名: </label> <input type="text"
-								class="input_text" name="user_name">
+								class="input_text" name="user_name">＊必須
+							
 						</div>
 						<div class="login-inform-box">
 							<label for="userps">パスワード:</label> <input type="password"
-								class="input_text" name="userps">
+								class="input_text" name="userps">＊必須
 						</div>
 						<div class="login-inform-box" >
 							<label for="user_adress"> 住所:</label> <input type="text"
@@ -168,20 +174,20 @@ label{
         </div></br>
         <?php if (empty($result_msg) !== TRUE) { ?>
          <div id="login_result_msg">
-            <p> <?php print '！'.$result_msg; ?></p>
-			<a>
+            <p class="atention_msg"> <?php print $result_msg; ?></p>
+			<p class="result_msg">
                 <?php print '名前：'. $user_name; ?>
-            </a>
-			<p>
+            </p>
+			<p class="result_msg">
                 <?php print 'パスワード：'. $userps; ?>
             </p>
-			<p>
+			<p class="result_msg">
                 <?php print '電話番号：'. $user_phone; ?>
             </p>
-			<p>
+			<p class="result_msg">
                 <?php print 'メールアドレス：'. $user_mail; ?>
             </p>
-			<p>
+			<p class="result_msg">
                 <?php print '住所：'. $user_adress; ?>
             </p>
              </div>
@@ -199,9 +205,5 @@ label{
     <div id="fotter">
     </div>
 </div>
-<?php var_dump($user_mail); ?>
-<?php var_dump($user_name); ?>
-<?php var_dump($user_adress); ?>
-<?php var_dump($_POST); ?>
 </body>
 </html>
