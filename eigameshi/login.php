@@ -6,7 +6,6 @@ session_start();
 define('DB_USER', 'miwako305'); // MySQLのユーザ名
 define('DB_PASSWD', ''); // MySQLのパスワード
 define('DSN', 'mysql:dbname=ga;host=localhost;charset=utf8');
-
 $date = [];
 $err_msg = []; // エラーメッセージ用の配列
 $result_msg = ''; // 実行結果のメッセージ

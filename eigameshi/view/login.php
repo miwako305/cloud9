@@ -28,24 +28,80 @@
 
 .login_box {
 	flex-grow: 2;
-	position: relative;
-	top: 300px;
+	width:100%;
+	flex:2;
 }
 
 .login_box_img {
-	width: 600px;
-	flex-grow: 3;
+	flex-grow:1;
+	  flex:3;
 }
 
 .logintop_img {
 	display: block;
 	margin: 0 auto;
+	  flex:1;
 }
-
+#formcontainer{
+     width:70%;
+    display: flex;
+    flex:1;
+    position: relative;
+	top:200px;
+	left:30%;
+    
+}
+.login_box_formcontainer{
+     width:100%;
+    font-size:3em;
+    display:flex;
+    color:#FFFFCC;
+}
+label{
+    font-size:1em;
+    width:35%;
+    margin-right: 2%;
+    text-align:right;
+    display:block;
+}
+.input_acount{
+    font-size:1em;
+    display:block;
+    width:60%;
+    margin-bottom: 3%;
+}
 .hedder_structure, 
 .fotter_structure {
 	width: 100%;
 }
+.ok_bottom{
+     width:35%;
+     display:block;
+     margin:4px;
+     font-size:2ex;
+     border-radius:8px;
+     background-color:red;
+     color:white;
+     position:relative;
+     left:70%;
+}
+.loginform_link{
+     width:50%;
+     padding:2%;
+     display:block;
+     margin:5px;
+     font-size:4ex;
+     border-radius:8px;
+     background-color:#FFFFCC;
+     color:black;
+     position:relative;
+     left:20%;
+     top:50%;
+     border:solid black;
+     text-decoration:none;
+    
+}
+
 </style>
 <body>
 	<div id="pagebody">
@@ -64,21 +120,25 @@
 						class="logintop_img">
 				</div>
 				<div class="login_box">
-					<table id="formcontainer">
-						<td width="250">
-							<form method="post" id="formcontainer">
-								<label for="user_name">ユーザ名: <a><input type="text" class="block"
-										name="user_name"></a>
-								</label> <label for="userps"> <a> パスワード:</a> <input
-									type="password" class="block" name="userps">
-								</label> <input type="hidden" name="sql_kind" value="login"> 
-								<input type="submit" value="ログイン">
+					<div id="formcontainer">
+							<form method="post">
+							    <div class="login_box_formcontainer">
+								    <label for="user_name">ユーザ名: </label>
+							     	<input type="text" class="input_acount"name="user_name">
+								</div>
+								<div class="login_box_formcontainer">
+								    <label for="userps">  パスワード:</label>
+								    <input type="password" class="input_acount" name="userps">
+								 </div>
+								<div class="login_box_formcontainer">
+								    <input type="hidden" name="sql_kind" value="login"> 
+								    <input type="submit" value="ログイン" class="ok_bottom">
+								</div>
 							</form>
-							<div class="loginform_php">
-								<li><a href="loginform.php" class="a.heddermenu">新規のお客様はこちら</a></li>
-							</div>
-						</td>
-					</table>
+					</div>
+					<a class="loginform_link" href="loginform.php" >
+					  新規のお客様はこちら
+					</a>
 				</div>
 			</div>
 		</div>
