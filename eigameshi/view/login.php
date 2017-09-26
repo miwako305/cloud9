@@ -112,6 +112,7 @@ label{
 				<img alt="映画飯ヘッダー画" , src="img/structure/hedder.png"
 					class="hedder_structure"></img>
 			</div>
+			確認終了
 		</div>
 		<div id="main">
 			<div id="maincontener">
