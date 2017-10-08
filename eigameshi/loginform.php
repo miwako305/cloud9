@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user_phone === '') {
         $err_msg[] = '電話番号を入力してください。';
     } else if (preg_match('/^[0-9]{8,9}$/', $user_phone) !== 1) {
-        $err_msg[] = "電話番号は半角入力で記入してください";
+        $err_msg[] = "電話番号は全角記入もしくは正しく入力されてません。";
     }
     // 4.ここからエラーチェック（住所）
     if (isset($_POST['user_adress']) === TRUE) {
